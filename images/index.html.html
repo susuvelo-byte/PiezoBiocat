@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PiezoBiocat — Susana Velasco Lozano Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:    #00BFA5;
+    --teal2:   #00897B;
+    --teal3:   #006D63;
+    --blue:    #1565C0;
+    --blue2:   #1E88E5;
+    --green:   #00C853;
+    --green2:  #43A047;
+    --ink:     #0B1F1D;
+    --mid:     #52736E;
+    --light:   #F4FDFB;
+    --white:   #FFFFFF;
+    --border:  rgba(0,191,165,0.18);
+    --grad-main: linear-gradient(135deg, #00BFA5 0%, #1565C0 60%, #00C853 100%);
+    --grad-soft: linear-gradient(135deg, rgba(0,191,165,0.12) 0%, rgba(21,101,192,0.08) 100%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--light); }
+  ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 10px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 4rem;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(0,137,123,0.1); }
+  .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; text-decoration: none; }
+  .nav-logo .logo-accent { font-family: 'Instrument Serif', serif; font-style: italic; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--grad-main); flex-shrink: 0; }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.01em; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--teal2); }
+  .lang-toggle { display: flex; gap: 0; border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .lang-toggle button { background: none; border: none; padding: 0.4rem 0.9rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 500; color: var(--mid); cursor: pointer; transition: all 0.2s; }
+  .lang-toggle button.active { background: var(--grad-main); color: white; }
+  .lang-toggle button:first-child { border-right: 1.5px solid var(--border); }
+
+  /* HERO */
+  .hero { min-height: 100vh; padding: 6rem 4rem 4rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -10%; right: -5%; width: 55%; height: 110%; background: linear-gradient(145deg, rgba(0,191,165,0.07) 0%, rgba(21,101,192,0.09) 50%, rgba(0,200,83,0.06) 100%); border-radius: 40% 60% 70% 30% / 40% 30% 70% 60%; animation: morphBlob 12s ease-in-out infinite; z-index: 0; }
+  @keyframes morphBlob { 0%,100% { border-radius: 40% 60% 70% 30% / 40% 30% 70% 60%; } 33% { border-radius: 70% 30% 50% 50% / 30% 40% 60% 70%; } 66% { border-radius: 30% 70% 30% 70% / 60% 30% 70% 40%; } }
+  .hero-left { position: relative; z-index: 1; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.6rem; border: 1.5px solid var(--border); border-radius: 100px; padding: 0.45rem 1.1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--teal2); margin-bottom: 2.2rem; width: fit-content; background: rgba(0,191,165,0.05); }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: blink 2.5s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+  .hero h1 { font-size: clamp(2.8rem, 4.5vw, 5.2rem); font-weight: 800; line-height: 1.0; letter-spacing: -0.04em; margin-bottom: 1.4rem; }
+  .hero h1 .serif-word { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+  .hero-tagline { font-size: 1.05rem; color: var(--mid); line-height: 1.75; max-width: 48ch; margin-bottom: 0.75rem; font-weight: 400; }
+  .hero-quote { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1.05rem; color: var(--teal2); border-left: 3px solid var(--teal); padding-left: 1.2rem; margin: 1.5rem 0 2.5rem; line-height: 1.6; }
+  .hero-cta { display: flex; gap: 1rem; align-items: center; }
+  .btn-grad { background: var(--grad-main); color: white; padding: 0.85rem 2rem; border-radius: 10px; font-size: 0.875rem; font-weight: 700; text-decoration: none; letter-spacing: 0.01em; box-shadow: 0 4px 20px rgba(0,191,165,0.4); transition: all 0.25s; border: none; cursor: pointer; }
+  .btn-grad:hover { box-shadow: 0 6px 32px rgba(0,191,165,0.5); transform: translateY(-2px); }
+  .btn-ghost { background: none; color: var(--ink); font-size: 0.875rem; font-weight: 600; text-decoration: none; padding: 0.85rem 1.5rem; border: 1.5px solid rgba(0,0,0,0.12); border-radius: 10px; transition: all 0.2s; }
+  .btn-ghost:hover { border-color: var(--teal); color: var(--teal2); }
+  .hero-right { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1.25rem; }
+  .stat-card { background: white; border: 1.5px solid var(--border); border-radius: 18px; padding: 1.75rem 2rem; box-shadow: 0 2px 20px rgba(0,137,123,0.07); display: flex; align-items: center; gap: 1.5rem; transition: all 0.25s; }
+  .stat-card:hover { box-shadow: 0 8px 32px rgba(0,191,165,0.14); transform: translateY(-2px); }
+  .stat-icon { width: 3.2rem; height: 3.2rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+  .si-teal { background: linear-gradient(135deg, rgba(0,191,165,0.15), rgba(0,191,165,0.05)); }
+  .si-blue { background: linear-gradient(135deg, rgba(21,101,192,0.12), rgba(21,101,192,0.04)); }
+  .si-green { background: linear-gradient(135deg, rgba(0,200,83,0.12), rgba(0,200,83,0.04)); }
+  .si-grad { background: linear-gradient(135deg, rgba(0,191,165,0.1), rgba(21,101,192,0.1)); }
+  .stat-num { font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+  .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--mid); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 0.2rem; }
+
+  .grad-divider { height: 3px; background: var(--grad-main); opacity: 0.35; }
+
+  /* SECTIONS */
+  .section { padding: 6rem 4rem; }
+  .section-alt { background: var(--light); }
+  .section-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 500; color: var(--teal2); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .section-title { font-size: clamp(2rem, 3vw, 3rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.1; margin-bottom: 0.75rem; }
+  .section-title .serif-w { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .section-sub { color: var(--mid); font-size: 0.95rem; line-height: 1.75; max-width: 55ch; margin-bottom: 3.5rem; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-text p { color: var(--mid); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.25rem; }
+  .about-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+  .chip { padding: 0.4rem 1rem; border-radius: 100px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+  .chip-teal { background: rgba(0,191,165,0.12); color: var(--teal2); border: 1px solid rgba(0,191,165,0.25); }
+  .chip-blue { background: rgba(21,101,192,0.1); color: var(--blue); border: 1px solid rgba(21,101,192,0.2); }
+  .chip-green { background: rgba(0,200,83,0.1); color: var(--green2); border: 1px solid rgba(0,200,83,0.2); }
+  .about-profile { background: white; border-radius: 24px; border: 1.5px solid var(--border); overflow: hidden; box-shadow: 0 8px 40px rgba(0,137,123,0.1); }
+  .profile-header { background: var(--grad-main); padding: 3rem 2.5rem 2rem; }
+  .profile-avatar { width: 5rem; height: 5rem; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; color: white; border: 3px solid rgba(255,255,255,0.5); margin-bottom: 1rem; }
+  .profile-name { font-size: 1.25rem; font-weight: 800; color: white; letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+  .profile-title { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: rgba(255,255,255,0.75); letter-spacing: 0.08em; text-transform: uppercase; }
+  .profile-body { padding: 2rem 2.5rem; }
+  .profile-row { display: flex; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+  .profile-row:last-child { border-bottom: none; }
+  .pr-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--teal2); text-transform: uppercase; letter-spacing: 0.07em; min-width: 5.5rem; padding-top: 0.1rem; }
+  .pr-val { color: var(--mid); line-height: 1.5; }
+
+  /* RESEARCH */
+  .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .r-card { background: white; border-radius: 18px; border: 1.5px solid var(--border); padding: 2.2rem; transition: all 0.25s; position: relative; overflow: hidden; }
+  .r-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--grad-main); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+  .r-card:hover { box-shadow: 0 8px 32px rgba(0,191,165,0.13); transform: translateY(-3px); }
+  .r-card:hover::after { transform: scaleX(1); }
+  .r-num { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: rgba(0,0,0,0.15); margin-bottom: 1rem; letter-spacing: 0.1em; }
+  .r-icon2 { width: 2.75rem; height: 2.75rem; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 1.25rem; background: var(--grad-soft); }
+  .r-tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 5px; background: rgba(0,191,165,0.1); color: var(--teal2); margin-bottom: 0.75rem; }
+  .r-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; letter-spacing: -0.02em; line-height: 1.3; }
+  .r-card p { font-size: 0.84rem; color: var(--mid); line-height: 1.7; }
+
+  /* PUBLICATIONS */
+  .pub-list { display: flex; flex-direction: column; gap: 1.25rem; }
+  .pub-item { background: white; border-radius: 14px; border: 1.5px solid var(--border); padding: 1.75rem 2rem; display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: start; transition: all 0.2s; }
+  .pub-item:hover { box-shadow: 0 4px 24px rgba(0,191,165,0.1); border-color: var(--teal); }
+  .pub-item.has-ga { grid-template-columns: auto 1fr auto auto; }
+  .pub-ga { width: 200px; height: 145px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); flex-shrink: 0; cursor: pointer; transition: transform 0.2s; }
+  .pub-ga:hover { transform: scale(1.05); }
+  /* GA lightbox */
+  .ga-lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 1000; align-items: center; justify-content: center; }
+  .ga-lightbox.open { display: flex; }
+  .ga-lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .ga-lightbox-close { position: absolute; top: 1.5rem; right: 2rem; color: white; font-size: 2rem; cursor: pointer; line-height: 1; }
+  .pub-year { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--teal2); font-weight: 500; padding-top: 0.2rem; min-width: 3rem; }
+  .pub-title { font-size: 0.95rem; font-weight: 600; line-height: 1.5; margin-bottom: 0.4rem; }
+  .pub-authors { font-size: 0.8rem; color: var(--mid); line-height: 1.5; }
+  .pub-journal { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--blue); font-size: 0.85rem; }
+  .pub-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 6px; background: rgba(21,101,192,0.1); color: var(--blue); white-space: nowrap; margin-top: 0.2rem; }
+
+  /* TEAM — tabs */
+  .team-tabs { display: flex; gap: 0.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+  .team-tab { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 0.5rem 1.2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500; color: var(--mid); cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.06em; }
+  .team-tab.active { background: var(--grad-main); color: white; border-color: transparent; }
+  .team-tab:hover:not(.active) { border-color: var(--teal); color: var(--teal2); }
+  .team-panel { display: none; }
+  .team-panel.active { display: block; }
+
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .member-card { background: white; border-radius: 18px; border: 1.5px solid var(--border); padding: 2rem; text-align: center; transition: all 0.25s; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .member-card:hover { box-shadow: 0 8px 32px rgba(0,191,165,0.13); transform: translateY(-3px); }
+  .m-avatar { width: 4rem; height: 4rem; border-radius: 50%; background: var(--grad-main); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 1rem; margin: 0 auto 1rem; box-shadow: 0 4px 16px rgba(0,191,165,0.3); }
+  .m-avatar.secondary { background: linear-gradient(135deg, rgba(0,191,165,0.2), rgba(21,101,192,0.15)); color: var(--teal2); box-shadow: none; }
+  .m-name { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .m-role { font-family: 'JetBrains Mono', monospace; font-size: 0.63rem; color: var(--teal2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
+  .m-detail { font-size: 0.78rem; color: var(--mid); line-height: 1.5; margin-top: 0.5rem; }
+  .m-years { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--mid); margin-top: 0.4rem; }
+
+  /* Member photos */
+  .m-avatar-img { width: 4rem; height: 4rem; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid rgba(0,191,165,0.3); box-shadow: 0 4px 16px rgba(0,191,165,0.2); }
+  .m-lab-photo { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; border: 1px solid var(--border); flex-shrink: 0; }
+  /* Member detail card (expanded) */
+  .member-card-wide { background: white; border-radius: 18px; border: 1.5px solid var(--border); padding: 2rem 2.5rem; transition: all 0.25s; box-shadow: 0 2px 12px rgba(0,0,0,0.04); display: flex; gap: 1.5rem; align-items: flex-start; }
+  .member-card-wide:hover { box-shadow: 0 8px 32px rgba(0,191,165,0.13); }
+  .member-card-wide .m-avatar { flex-shrink: 0; margin: 0; }
+  .member-card-wide-body { flex: 1; text-align: left; }
+  .member-card-wide-body .m-name { font-size: 1rem; }
+  .member-card-wide-body .m-detail { font-size: 0.82rem; color: var(--mid); line-height: 1.6; margin-top: 0.5rem; }
+  .member-card-inner { display: flex; gap: 1.5rem; align-items: flex-start; flex: 1; }
+  .m-lab-photo { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; border: 1px solid var(--border); flex-shrink: 0; }
+  .members-wide-grid { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  /* Collaborations */
+  .collab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .collab-card { background: white; border-radius: 16px; border: 1.5px solid var(--border); padding: 1.75rem; transition: all 0.25s; }
+  .collab-card:hover { box-shadow: 0 8px 28px rgba(0,191,165,0.12); transform: translateY(-2px); }
+  .collab-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .collab-role { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--teal2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+  .collab-desc { font-size: 0.82rem; color: var(--mid); line-height: 1.6; }
+  .collab-doi { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--blue); margin-top: 0.6rem; }
+
+  /* NEWS */
+  .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .news-card { background: white; border-radius: 18px; border: 1.5px solid var(--border); padding: 2rem; transition: all 0.25s; }
+  .news-card:hover { box-shadow: 0 8px 28px rgba(0,191,165,0.12); transform: translateY(-2px); }
+  .n-chip { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 6px; margin-bottom: 0.85rem; }
+  .chip-pub { background: rgba(0,191,165,0.1); color: var(--teal2); }
+  .chip-grant { background: rgba(0,200,83,0.1); color: var(--green2); }
+  .chip-award { background: rgba(21,101,192,0.1); color: var(--blue); }
+  .chip-press { background: rgba(255,167,38,0.1); color: #E65100; }
+  .n-date { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--mid); margin-bottom: 0.6rem; }
+  .n-title { font-size: 0.97rem; font-weight: 700; line-height: 1.45; }
+
+  /* EX-MEMBERS */
+  .ex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .ex-card { border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.5rem; display: flex; align-items: flex-start; gap: 1rem; transition: all 0.2s; }
+  .ex-card:hover { background: var(--light); }
+  .ex-init { width: 2.5rem; height: 2.5rem; border-radius: 50%; flex-shrink: 0; background: linear-gradient(135deg, rgba(0,191,165,0.15), rgba(21,101,192,0.1)); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500; color: var(--teal2); }
+  .ex-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.15rem; }
+  .ex-role { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--mid); text-transform: uppercase; letter-spacing: 0.05em; }
+  .ex-years { font-size: 0.75rem; color: var(--mid); margin-top: 0.1rem; }
+  .ex-next { font-size: 0.75rem; color: var(--teal2); margin-top: 0.3rem; font-style: italic; }
+
+  /* CONTACT */
+  .contact-wrap { background: var(--grad-main); border-radius: 28px; padding: 5rem; color: white; box-shadow: 0 20px 60px rgba(0,191,165,0.25); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+  .contact-p { color: rgba(255,255,255,0.75); font-size: 1rem; line-height: 1.8; }
+  .c-row { display: flex; gap: 1.5rem; padding: 1.25rem 0; border-bottom: 1px solid rgba(255,255,255,0.15); font-size: 0.88rem; }
+  .c-row:last-child { border-bottom: none; }
+  .c-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.08em; min-width: 6rem; padding-top: 0.1rem; }
+  .c-val { color: white; font-weight: 500; }
+
+  /* FOOTER */
+  footer { padding: 2rem 4rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.03em; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .footer-center { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--mid); text-align: center; line-height: 1.8; }
+  .footer-right { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--mid); text-align: right; }
+
+  /* LANGUAGE */
+  [data-lang="es"] { display: none; }
+  body.lang-es [data-lang="en"] { display: none; }
+  body.lang-es [data-lang="es"] { display: revert; }
+  span[data-lang="es"], a[data-lang="es"] { display: none; }
+  body.lang-es span[data-lang="en"] { display: none; }
+  body.lang-es span[data-lang="es"] { display: inline; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 1.5rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0.6rem; bottom: 0.6rem;
+    width: 2px; background: linear-gradient(to bottom, var(--teal), var(--blue), var(--green));
+    border-radius: 2px;
+  }
+  .tl-item {
+    position: relative; padding: 0 0 2rem 2rem;
+  }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-dot {
+    position: absolute; left: -1.85rem; top: 0.35rem;
+    width: 1.25rem; height: 1.25rem; border-radius: 50%;
+    background: white; border: 2.5px solid var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; z-index: 1;
+    box-shadow: 0 0 0 3px rgba(0,191,165,0.12);
+  }
+  .tl-item:nth-child(2) .tl-dot { border-color: #1E88E5; box-shadow: 0 0 0 3px rgba(30,136,229,0.1); }
+  .tl-item:nth-child(3) .tl-dot { border-color: var(--green2); box-shadow: 0 0 0 3px rgba(67,160,71,0.1); }
+  .tl-item:nth-child(4) .tl-dot { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(21,101,192,0.1); }
+  .tl-item:nth-child(5) .tl-dot { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,191,165,0.12); }
+  .tl-item:nth-child(6) .tl-dot { border-color: var(--green2); box-shadow: 0 0 0 3px rgba(67,160,71,0.1); }
+  .tl-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; font-weight: 600;
+    color: var(--teal2); letter-spacing: 0.08em;
+    margin-bottom: 0.2rem;
+  }
+  .tl-item:nth-child(2) .tl-year { color: #1565C0; }
+  .tl-item:nth-child(3) .tl-year { color: var(--green2); }
+  .tl-item:nth-child(4) .tl-year { color: var(--blue); }
+  .tl-item:nth-child(5) .tl-year { color: var(--teal2); }
+  .tl-item:nth-child(6) .tl-year { color: var(--green2); }
+  .tl-place {
+    font-size: 0.92rem; font-weight: 700; letter-spacing: -0.01em;
+    margin-bottom: 0.25rem; line-height: 1.3;
+  }
+  .tl-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.2rem 0.55rem; border-radius: 4px;
+    background: rgba(0,191,165,0.1); color: var(--teal2);
+    margin-bottom: 0.45rem;
+  }
+  .tl-item:nth-child(2) .tl-badge { background: rgba(30,136,229,0.1); color: #1565C0; }
+  .tl-item:nth-child(3) .tl-badge { background: rgba(67,160,71,0.1); color: var(--green2); }
+  .tl-item:nth-child(4) .tl-badge { background: rgba(21,101,192,0.1); color: var(--blue); }
+  .tl-item:nth-child(5) .tl-badge { background: rgba(0,191,165,0.1); color: var(--teal2); }
+  .tl-item:nth-child(6) .tl-badge { background: rgba(67,160,71,0.1); color: var(--green2); }
+  .tl-desc {
+    font-size: 0.82rem; color: var(--mid); line-height: 1.65;
+  }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+  .project-card {
+    background: white; border-radius: 20px;
+    border: 1.5px solid var(--border);
+    padding: 2.5rem; transition: all 0.25s;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--grad-main);
+  }
+  .project-card.industry::before { background: linear-gradient(135deg, #FF8F00, #E65100); }
+  .project-card:hover { box-shadow: 0 12px 40px rgba(0,191,165,0.14); transform: translateY(-3px); }
+  .project-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.3rem 0.8rem; border-radius: 6px; width: fit-content;
+  }
+  .ptag-erc { background: rgba(0,191,165,0.1); color: var(--teal2); }
+  .ptag-national { background: rgba(21,101,192,0.1); color: var(--blue); }
+  .ptag-industry { background: rgba(255,143,0,0.1); color: #E65100; }
+  .project-title {
+    font-size: 1.15rem; font-weight: 800; letter-spacing: -0.025em;
+    line-height: 1.25;
+  }
+  .project-subtitle {
+    font-size: 0.82rem; color: var(--mid); font-style: italic; margin-top: -0.25rem;
+  }
+  .project-meta {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; color: var(--mid);
+  }
+  .project-meta span { display: flex; align-items: center; gap: 0.35rem; }
+  .project-amount {
+    font-size: 1.6rem; font-weight: 800; letter-spacing: -0.04em;
+    background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .project-card.industry .project-amount {
+    background: linear-gradient(135deg, #FF8F00, #E65100);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .project-desc { font-size: 0.85rem; color: var(--mid); line-height: 1.75; }
+  .project-ref {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem; color: var(--teal2);
+    background: rgba(0,191,165,0.07); border-radius: 5px;
+    padding: 0.25rem 0.6rem; width: fit-content;
+  }
+  .project-card.industry .project-ref { color: #E65100; background: rgba(255,143,0,0.07); }
+  .industry-header { display: flex; gap: 1rem; align-items: center; margin-bottom: 0.5rem; }
+  .industry-icon { font-size: 1.5rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-left > * { animation: fadeUp 0.6s ease both; }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.35s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.4s; }
+  .hero-right { animation: fadeUp 0.7s ease 0.3s both; }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav-inner { padding: 0 1rem; }
+    .section, .section-alt { padding: 3rem 1.25rem; }
+    .hero-title { font-size: 2.2rem; }
+    .hero-badges { flex-wrap: wrap; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .members-wide-grid { grid-template-columns: 1fr; }
+    .member-card-wide { flex-wrap: wrap; padding: 1.25rem; gap: 1rem; }
+    .m-lab-photo { width: 100% !important; height: 180px !important; order: 3; }
+    .m-avatar-img { width: 3rem; height: 3rem; }
+    .pub-item { grid-template-columns: auto 1fr !important; gap: 0.75rem; padding: 1.25rem; }
+    .pub-item.has-ga { grid-template-columns: 1fr !important; }
+    .pub-ga { width: 100% !important; height: 160px; order: -1; }
+    .pub-badge { grid-column: 1 / -1; }
+    .tl-item { padding-left: 2rem; }
+    .profile-card { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-dot"></div>
+    <span class="logo-accent">Piezo</span>Biocat
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about"><span data-lang="en">About</span><span data-lang="es">Sobre mí</span></a></li>
+    <li><a href="#research"><span data-lang="en">Research</span><span data-lang="es">Investigación</span></a></li>
+    <li><a href="#projects"><span data-lang="en">Projects</span><span data-lang="es">Proyectos</span></a></li>
+    <li><a href="#publications"><span data-lang="en">Publications</span><span data-lang="es">Publicaciones</span></a></li>
+    <li><a href="#team"><span data-lang="en">Team</span><span data-lang="es">Equipo</span></a></li>
+    <li><a href="#news"><span data-lang="en">News</span><span data-lang="es">Noticias</span></a></li>
+    <li><a href="#contact"><span data-lang="en">Contact</span><span data-lang="es">Contacto</span></a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+    <button id="btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      <span>ISQCH · CSIC · Universidad de Zaragoza</span>
+    </div>
+    <h1>
+      <span data-lang="en">Biocatalysis<br>meets <span class="serif-word">Piezo&shy;electricity</span></span>
+      <span data-lang="es">Biocatálisis<br>y <span class="serif-word">Piezoeléctri&shy;cidad</span></span>
+    </h1>
+    <div class="hero-quote">
+      <span data-lang="en">"Designing the biocatalysts of tomorrow — for a cleaner and more sustainable world."</span>
+      <span data-lang="es">"Diseñando los biocatalizadores del mañana — para un mundo químico más limpio y sostenible."</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#research" class="btn-grad"><span data-lang="en">Explore Research</span><span data-lang="es">Ver Investigación</span></a>
+      <a href="#team" class="btn-ghost"><span data-lang="en">Meet the Group →</span><span data-lang="es">Conoce el Grupo →</span></a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="stat-icon si-teal">📄</div>
+      <div><div class="stat-num">45</div><div class="stat-label"><span data-lang="en">Publications (70% Q1)</span><span data-lang="es">Publicaciones (70% Q1)</span></div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon si-blue">📈</div>
+      <div><div class="stat-num">1,123</div><div class="stat-label"><span data-lang="en">Citations · h-index 17</span><span data-lang="es">Citas · h-index 17</span></div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon si-green">💶</div>
+      <div><div class="stat-num">1.64M€</div><div class="stat-label"><span data-lang="en">Funding secured as PI</span><span data-lang="es">Financiación obtenida como IP</span></div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon si-grad">⚡</div>
+      <div><div class="stat-num">ERC</div><div class="stat-label"><span data-lang="en">Starting Grant · PIEZOZYMES</span><span data-lang="es">Starting Grant · PIEZOZYMES</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="grad-divider"></div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-eyebrow"><span data-lang="en">About</span><span data-lang="es">Sobre mí</span></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 class="section-title" style="margin-bottom:1.75rem">Dr. Susana<br><span class="serif-w">Velasco Lozano</span></h2>
+
+      <div class="timeline">
+
+        <!-- 1 -->
+        <div class="tl-item">
+          <div class="tl-dot">🏅</div>
+          <div class="tl-year">2022 – 2026</div>
+          <div class="tl-place"><span data-lang="en">Recognition & Leadership</span><span data-lang="es">Reconocimiento y Liderazgo</span></div>
+          <span class="tl-badge"><span data-lang="en">Milestones</span><span data-lang="es">Hitos</span></span>
+          <div class="tl-desc">
+            <span data-lang="en">Dec 2022 — Senior Researcher, ARAID · 2023 — R3 certification (scientific independence) · 2026 — Científica Titular, CSIC</span>
+            <span data-lang="es">Dic 2022 — Investigadora Senior, ARAID · 2023 — Certificación R3 (independencia científica) · 2026 — Científica Titular, CSIC</span>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="tl-item">
+          <div class="tl-dot">⚡</div>
+          <div class="tl-year">2022 →</div>
+          <div class="tl-place"><span data-lang="en">ISQCH, CSIC–Universidad de Zaragoza</span><span data-lang="es">ISQCH, CSIC–Universidad de Zaragoza</span></div>
+          <span class="tl-badge">ERC Starting Grant · PI</span>
+          <div class="tl-desc">
+            <span data-lang="en">Joined as Principal Investigator in June 2022, launching the PiezoBioCat group and the PIEZOZYMES project. Hosted by the <a href="https://cheso.unizar.es/" style="color:var(--teal2)">CHESO group (E37_23R)</a>.</span>
+            <span data-lang="es">Se incorporó como Investigadora Principal en junio de 2022, lanzando el grupo PiezoBioCat y el proyecto PIEZOZYMES. Integrada en el <a href="https://cheso.unizar.es/" style="color:var(--teal2)">grupo CHESO (E37_23R)</a>.</span>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="tl-item">
+          <div class="tl-dot">⚙️</div>
+          <div class="tl-year">2020 – 2022</div>
+          <div class="tl-place">CIC biomaGUNE, Spain</div>
+          <span class="tl-badge"><span data-lang="en">Postdoctoral Associate</span><span data-lang="es">Investigadora Postdoctoral</span></span>
+          <div class="tl-desc">
+            <span data-lang="en">Working with Prof. Fernando López-Gallego. Focused on controlling the spatial organization of multi-enzyme systems across nano-, micro-, and macro-scales to enhance catalytic efficiency, stability, and cascade performance.</span>
+            <span data-lang="es">Trabajando con el Prof. Fernando López-Gallego. Se centró en controlar la organización espacial de sistemas multienzimáticos a escalas nano, micro y macro para mejorar la eficiencia catalítica, la estabilidad y el rendimiento en cascada.</span>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="tl-item">
+          <div class="tl-dot">🌿</div>
+          <div class="tl-year">2017 – 2019</div>
+          <div class="tl-place"><span data-lang="en">Universidad de Zaragoza, Spain</span><span data-lang="es">Universidad de Zaragoza, España</span></div>
+          <span class="tl-badge">SECIHTI Postdoc</span>
+          <div class="tl-desc">
+            <span data-lang="en">Working with Prof. José Antonio Mayoral. Developed enzymatic routes for the synthesis of glycerol-based green solvents through enzyme genetic engineering, contributing to advances in sustainable chemistry.</span>
+            <span data-lang="es">Trabajando con el Prof. José Antonio Mayoral. Desarrolló rutas enzimáticas para la síntesis de disolventes verdes basados en glicerol mediante ingeniería genética enzimática, contribuyendo a avances en química sostenible.</span>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="tl-item">
+          <div class="tl-dot">🔬</div>
+          <div class="tl-year">2015 – 2017</div>
+          <div class="tl-place">CIC biomaGUNE, Spain</div>
+          <span class="tl-badge">MSCA Postdoctoral Fellow</span>
+          <div class="tl-desc">
+            <span data-lang="en">Working with Prof. Fernando López-Gallego, pioneered bio-inorganic generators combining enzymes and piezoelectric materials — demonstrating chemical-to-electrical energy conversion and opening a novel research line at the interface of biocatalysis and piezoelectricity.</span>
+            <span data-lang="es">Trabajando con el Prof. Fernando López-Gallego, fue pionera en generadores bioinorgánicos que combinan enzimas y materiales piezoeléctricos — demostrando la conversión de energía química en eléctrica y abriendo una nueva línea de investigación en la interfaz de biocatálisis y piezoelectricidad.</span>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="tl-item">
+          <div class="tl-dot">🎓</div>
+          <div class="tl-year">2014</div>
+          <div class="tl-place"><span data-lang="en">PhD · Universidad Autónoma Metropolitana, Mexico</span><span data-lang="es">Doctorado · Universidad Autónoma Metropolitana, México</span></div>
+          <span class="tl-badge">Biotechnology</span>
+          <div class="tl-desc">
+            <span data-lang="en">Supervised by Prof. Ernesto Favela. Developed innovative cross-linking strategies for carrier-free immobilized enzymes, contributing to the design of stable and efficient biocatalysts for industrial applications.</span>
+            <span data-lang="es">Bajo la supervisión del Prof. Ernesto Favela. Desarrolló estrategias innovadoras de entrecruzamiento para enzimas inmovilizadas sin soporte, contribuyendo al diseño de biocatalizadores estables y eficientes para aplicaciones industriales.</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="about-chips" style="margin-top:2.5rem">
+        <span class="chip chip-teal">Biocatalysis</span>
+        <span class="chip chip-blue">Piezoelectricity</span>
+        <span class="chip chip-green">Enzyme Engineering</span>
+        <span class="chip chip-teal"><span data-lang="en">Smart Biomaterials</span><span data-lang="es">Biomateriales Inteligentes</span></span>
+        <span class="chip chip-blue">Green Chemistry</span>
+      </div>
+    </div>
+    <div class="about-profile">
+      <div class="profile-header">
+        <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana.PNG" alt="Susana Velasco Lozano" style="width:100%;height:450px;object-fit:cover;object-position:center top;display:block;border-radius:16px 16px 0 0;">
+        <div class="profile-name">Susana Velasco Lozano</div>
+        <div class="profile-title">Principal Investigator · PiezoBiocat Group</div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row">
+          <span class="pr-label"><span data-lang="en">Position</span><span data-lang="es">Cargo</span></span>
+          <span class="pr-val"><span data-lang="en">Científica Titular, CSIC</span><span data-lang="es">Científica Titular, CSIC</span></span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">Institute</span>
+          <span class="pr-val">ISQCH · CSIC-Universidad de Zaragoza</span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">PhD</span>
+          <span class="pr-val"><span data-lang="en">Biotechnology, UAM México (2014) · Supervisor: Prof. Ernesto Favela</span><span data-lang="es">Biotecnología, UAM México (2014) · Dir.: Prof. Ernesto Favela</span></span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">Postdoc</span>
+          <span class="pr-val">CIC biomaGUNE, MSCA Fellow (2015–2017) · Univ. Zaragoza, SECIHTI (2017–2019) · CIC biomaGUNE (2020–2022)</span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">PI since</span>
+          <span class="pr-val"><span data-lang="en">June 2022 · Universidad de Zaragoza / ISQCH–CSIC</span><span data-lang="es">Junio 2022 · Universidad de Zaragoza / ISQCH–CSIC</span></span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">ORCID</span>
+          <span class="pr-val">0000-0001-9478-6750</span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">Grant</span>
+          <span class="pr-val">ERC Starting Grant · PIEZOZYMES · 2022–2027</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="section section-alt" id="research">
+  <div class="section-eyebrow"><span data-lang="en">Research</span><span data-lang="es">Investigación</span></div>
+  <h2 class="section-title"><span data-lang="en">Lines of <span class="serif-w">Investigation</span></span><span data-lang="es">Líneas de <span class="serif-w">Investigación</span></span></h2>
+  <p class="section-sub">
+    <span data-lang="en">Our group works at the frontier of biocatalysis, materials science, and sustainability — designing the biotransformations of tomorrow.</span>
+    <span data-lang="es">Nuestro grupo trabaja en la frontera de la biocatálisis, la ciencia de materiales y la sostenibilidad — diseñando las biotransformaciones del mañana.</span>
+  </p>
+  <div class="research-grid">
+
+    <!-- 01 PIEZOZYMES -->
+    <div class="r-card">
+      <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/ga_piezozymes.png" alt="PIEZOZYMES" style="width:100%;height:120px;object-fit:contain;border-radius:10px;margin-bottom:0.5rem;background:white;">
+      <span class="r-tag">ERC Project</span>
+      <h3>PIEZOZYMES</h3>
+      <p><span data-lang="en">Integrating piezoelectric materials and enzymes to create novel biocatalytic tools for complex biosynthetic routes.</span><span data-lang="es">Integración de materiales piezoeléctricos y enzimas para crear herramientas biocatalíticas novedosas en rutas biosintéticas complejas.</span></p>
+    </div>
+
+    <!-- 02 Enzyme Engineering -->
+    <div class="r-card">
+      <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/ga_enzyme_engineering.png" alt="Enzyme Engineering" style="width:100%;height:120px;object-fit:contain;border-radius:10px;margin-bottom:0.5rem;background:white;">
+      <span class="r-tag">Core Line</span>
+      <h3><span data-lang="en">Enzyme Engineering</span><span data-lang="es">Ingeniería Enzimática</span></h3>
+      <p><span data-lang="en">Improving activity, stability and selectivity of biocatalysts via genetic and enzymatic engineering.</span><span data-lang="es">Mejora de la actividad, estabilidad y selectividad de biocatalizadores mediante ingeniería genética y enzimática.</span></p>
+      <div style="margin-top:1rem;border-top:1px solid var(--border);padding-top:0.75rem">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Key Publications</div>
+        <div style="font-size:0.78rem;color:var(--mid);line-height:1.5;margin-bottom:0.4rem">→ <a href="https://doi.org/10.1021/acs.biomac.5c01010" target="_blank" style="color:var(--ink);text-decoration:none">Immobilization of Thrombin on Agarose-Based Supports for Affinity Tag Removal <span style="color:var(--teal2)">· Biomacromolecules 2025</span></a></div>
+        <div style="font-size:0.78rem;color:var(--mid);line-height:1.5;margin-bottom:0.4rem">→ <a href="https://doi.org/10.1038/s41467-023-38304-z" target="_blank" style="color:var(--ink);text-decoration:none">Engineered Repeat Proteins as Scaffolds to Assemble Multi-Enzyme Systems <span style="color:var(--teal2)">· Nature Communications 2023</span></a></div>
+        <div style="font-size:0.78rem;color:var(--mid);line-height:1.5">→ <a href="https://doi.org/10.1039/D0SC04471G" target="_blank" style="color:var(--ink);text-decoration:none">Selective Oxidation of Alkyl and Aryl Glyceryl Monoethers <span style="color:var(--teal2)">· Chemical Science 2020</span></a></div>
+      </div>
+    </div>
+
+    <!-- 03 Smart Biomaterials -->
+    <div class="r-card">
+      <span class="r-tag">Materials</span>
+      <h3><span data-lang="en">Smart Biomaterials</span><span data-lang="es">Biomateriales Inteligentes</span></h3>
+      <p><span data-lang="en">Custom microporous solid biomaterials and nanoparticles designed to boost biocatalyst efficiency across industrial and environmental processes.</span><span data-lang="es">Biomateriales sólidos microporosos y nanopartículas diseñadas para incrementar la eficiencia de biocatalizadores.</span></p>
+      <div style="margin-top:1rem;border-top:1px solid var(--border);padding-top:0.75rem">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Key Publications</div>
+        <div style="font-size:0.78rem;color:var(--mid);line-height:1.5;margin-bottom:0.4rem">→ <a href="https://doi.org/10.1021/acssuschemeng.4c02396" target="_blank" style="color:var(--ink);text-decoration:none">Optimized Spatial Configuration of Heterogeneous Biocatalysts <span style="color:var(--teal2)">· ACS Sust. Chem. Eng. 2024</span></a></div>
+        <div style="font-size:0.78rem;color:var(--mid);line-height:1.5;margin-bottom:0.4rem">→ <a href="https://doi.org/10.1021/acs.biomac.2c01364" target="_blank" style="color:var(--ink);text-decoration:none">Multienzyme Coimmobilization on Triheterofunctional Supports <span style="color:var(--teal2)">· Biomacromolecules 2023</span></a></div>
+        <div style="font-size:0.78rem;color:var(--mid);line-height:1.5">→ <a href="https://doi.org/10.1021/acssuschemeng.3c02958" target="_blank" style="color:var(--ink);text-decoration:none">Self-Sufficient Heterogeneous Biocatalysis through Boronic Acid-Diol Complexation <span style="color:var(--teal2)">· ACS Sust. Chem. Eng. 2023</span></a></div>
+      </div>
+    </div>
+
+    <!-- 04 Plastic Recycling -->
+    <div class="r-card">
+      <div class="r-num">04</div>
+      <div class="r-icon2">♻️</div>
+      <span class="r-tag" style="background:rgba(0,200,83,0.1);color:var(--green2)">Sustainability</span>
+      <h3><span data-lang="en">Plastic Recycling</span><span data-lang="es">Reciclaje de Plásticos</span></h3>
+      <p><span data-lang="en">Enzymatic biocatalysis approaches for sustainable plastic degradation and circular economy solutions.</span><span data-lang="es">Estrategias biocatalíticas enzimáticas para la degradación sostenible de plásticos y soluciones de economía circular.</span></p>
+      <div style="margin-top:1rem;border-top:1px solid var(--border);padding-top:0.75rem">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Key Publications</div>
+        <div style="font-size:0.78rem;color:var(--mid);line-height:1.5">→ <a href="https://doi.org/10.1038/s41467-023-39201-1" target="_blank" style="color:var(--ink);text-decoration:none">Mechanistic Studies of a Lipase Unveil Effect of pH on Hydrolysis Products of Small PET Modules <span style="color:var(--teal2)">· Nature Communications 2023</span></a></div>
+      </div>
+    </div>
+
+    <!-- 05 Biocatalysis &amp; Health -->
+    <div class="r-card">
+      <div class="r-num">05</div>
+      <div class="r-icon2">💊</div>
+      <span class="r-tag" style="background:rgba(21,101,192,0.1);color:var(--blue)">Biomedicine</span>
+      <h3><span data-lang="en">Biocatalysis &amp; Health</span><span data-lang="es">Biocatálisis &amp; Salud</span></h3>
+      <p><span data-lang="en">Advancing health through precision biocatalysis, enabling targeted molecular activation and innovative therapeutic strategies.</span><span data-lang="es">Avanzando en salud a través de la biocatálisis de precisión, habilitando la activación molecular dirigida y estrategias terapéuticas innovadoras.</span></p>
+      <div style="margin-top:1rem;border-top:1px solid var(--border);padding-top:0.75rem">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Key Publications</div>
+        <div style="font-size:0.78rem;color:var(--mid);line-height:1.5;margin-bottom:0.4rem">→ <a href="https://doi.org/10.1016/j.actbio.2024.09.002" target="_blank" style="color:var(--ink);text-decoration:none">Thermosensitive Chitosan-Based Hydrogel for Nose-to-Brain Cell Therapy <span style="color:var(--teal2)">· Acta Biomaterialia 2024</span></a></div>
+        <div style="font-size:0.78rem;color:var(--mid);line-height:1.5">→ <a href="https://doi.org/10.1039/d1sc05151b" target="_blank" style="color:var(--ink);text-decoration:none">Metal Substrate Catalysis in the Confined Space for Platinum Drug Delivery <span style="color:var(--teal2)">· Chemical Science 2022</span></a></div>
+      </div>
+    </div>
+
+    <!-- 06 Clean Energy -->
+    <div class="r-card">
+      <div class="r-num">06</div>
+      <div class="r-icon2">⚗️</div>
+      <span class="r-tag" style="background:rgba(255,167,38,0.1);color:#E65100">Energy</span>
+      <h3><span data-lang="en">Clean Energy</span><span data-lang="es">Energía Limpia</span></h3>
+      <p><span data-lang="en">Bioinorganic systems that convert renewable molecules into electricity through biocatalysis.</span><span data-lang="es">Sistemas bioinorgánicos que convierten moléculas renovables en electricidad a través de la biocatálisis.</span></p>
+      <div style="margin-top:1rem;border-top:1px solid var(--border);padding-top:0.75rem">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Key Publications</div>
+        <div style="font-size:0.78rem;color:var(--mid);line-height:1.5;margin-bottom:0.4rem">→ <a href="https://doi.org/10.1002/cbic.201900047" target="_blank" style="color:var(--ink);text-decoration:none">Biocatalytic Protein-Based Materials for Integration into Energy Devices <span style="color:var(--teal2)">· ChemBioChem 2019</span></a></div>
+        <div style="font-size:0.78rem;color:var(--mid);line-height:1.5">→ <a href="https://doi.org/10.1021/acsaem.7b00328" target="_blank" style="color:var(--ink);text-decoration:none">Coupling Enzymes and Inorganic Piezoelectric Materials for Electricity Production <span style="color:var(--teal2)">· ACS Appl. Energy Mater. 2018</span></a></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- PROJECTS -->
+<section class="section section-alt" id="projects">
+  <div class="section-eyebrow"><span data-lang="en">Funding</span><span data-lang="es">Financiación</span></div>
+  <h2 class="section-title"><span data-lang="en">Research <span class="serif-w">Projects</span></span><span data-lang="es"><span class="serif-w">Proyectos</span> de Investigación</span></h2>
+  <p class="section-sub">
+    <span data-lang="en">Competitive grants and industry collaborations driving the PiezoBiocat research agenda.</span>
+    <span data-lang="es">Proyectos competitivos y colaboraciones con la industria que impulsan la agenda investigadora del grupo.</span>
+  </p>
+
+  <!-- Competitive R&D -->
+  <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.5rem">
+    <span data-lang="en">Competitive R&amp;D Projects</span><span data-lang="es">Proyectos de I+D Competitivos</span>
+  </p>
+  <div class="projects-grid">
+
+    <!-- PIEZOZYMES -->
+    <div class="project-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.75rem">
+        <span class="project-tag ptag-erc">⚡ ERC Starting Grant</span>
+        <span class="project-ref">ERC-101041192</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin:0.75rem 0">
+        <div>
+          <div class="project-title">PIEZOZYMES</div>
+          <div class="project-subtitle"><span data-lang="en">Enzymatic Piezoelectric Composites to Regenerate Redox Cofactors Driven by Mechanical Sources</span><span data-lang="es">Compuestos Piezoeléctricos Enzimáticos para Regenerar Cofactores Redox Impulsados por Fuentes Mecánicas</span></div>
+        </div>
+        <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/logo_erc.png" alt="ERC Logo" style="height:60px;object-fit:contain;flex-shrink:0;">
+      </div>
+      <div class="project-meta">
+        <span>🏛️ <span data-lang="en">European Union</span><span data-lang="es">Unión Europea</span></span>
+        <span>🏫 Universidad de Zaragoza</span>
+        <span>📅 06/2022 – 05/2027</span>
+      </div>
+      <div class="project-desc">
+        <span data-lang="en">This project establishes a pioneering paradigm enabling redox biotransformations powered by mechanical-to-chemical energy conversion, a concept not previously demonstrated in biocatalysis. PIEZOZYMES drives the development of innovative piezo-biocatalytic technologies, opening new mechanochemical pathways for sustainable biotransformations and strengthening the international research capacity and scientific leadership of the group.</span>
+        <span data-lang="es">Este proyecto establece un paradigma pionero que permite biotransformaciones redox impulsadas por la conversión de energía mecánica en química, un concepto no demostrado previamente en biocatálisis. PIEZOZYMES impulsa el desarrollo de tecnologías piezo-biocatalíticas innovadoras, abriendo nuevas vías mecanoquímicas para biotransformaciones sostenibles y reforzando la capacidad investigadora internacional y el liderazgo científico del grupo.</span>
+      </div>
+    </div>
+
+    <!-- SiBioCat -->
+    <div class="project-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.75rem">
+        <span class="project-tag ptag-national">🇪🇸 <span data-lang="en">Spanish Government</span><span data-lang="es">Gobierno de España</span></span>
+        <span class="project-ref">PID2024-160687OA-I00</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin:0.75rem 0">
+        <div>
+          <div class="project-title">SiBioCat</div>
+          <div class="project-subtitle"><span data-lang="en">Silk Biomaterials as Active and Dynamic Platforms for Assembling Multi-Enzyme Systems</span><span data-lang="es">Biomateriales de Seda como Plataformas Activas y Dinámicas para Sistemas Multienzimáticos</span></div>
+        </div>
+        <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/logo_aei.jpg" alt="AEI Logo" style="height:60px;object-fit:contain;flex-shrink:0;">
+      </div>
+      <div class="project-meta">
+        <span>🏛️ AEI</span>
+        <span>🏫 Universidad de Zaragoza</span>
+        <span>📅 09/2025 – 08/2028</span>
+      </div>
+      <div class="project-desc">
+        <span data-lang="en">SiBioCat aims to design advanced silk-based piezoelectric biomaterials capable of harvesting mechanical energy to activate synergistic multi-enzyme systems for CO₂ fixation and the sustainable production of biofuels. The project integrates recombinant silk-like peptide production, biomaterials engineering, mechanochemical activation, and multi-step biocatalysis to create dynamic platforms with significant potential for green and circular bioprocesses.</span>
+        <span data-lang="es">SiBioCat busca diseñar biomateriales piezoeléctricos avanzados basados en seda capaces de captar energía mecánica para activar sistemas multienzimáticos sinérgicos para la fijación de CO₂ y la producción sostenible de biocombustibles. El proyecto integra producción de péptidos recombinantes tipo seda, ingeniería de biomateriales, activación mecanoquímica y biocatálisis multietapa para crear plataformas dinámicas con gran potencial para bioprocesos verdes y circulares.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Industry -->
+  <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#E65100;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.5rem">
+    <span data-lang="en">Industry &amp; Technology Transfer</span><span data-lang="es">Industria y Transferencia Tecnológica</span>
+  </p>
+  <div style="max-width:720px">
+    <div class="project-card industry">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.75rem">
+        <span class="project-tag ptag-industry">🏭 <span data-lang="en">Industry Contract</span><span data-lang="es">Contrato Industrial</span></span>
+        <span class="project-ref">OTRI C037/2023_1</span>
+      </div>
+      <div>
+        <div class="project-title"><span data-lang="en">Enzymatic Strategies for Omega-3 Production</span><span data-lang="es">Estrategias Enzimáticas para la Producción de Omega-3</span></div>
+        <div class="project-subtitle" style="margin-top:0.3rem"><span data-lang="en">In collaboration with</span><span data-lang="es">En colaboración con</span> <strong>Solutex GC, S.L.</strong></div>
+      </div>
+      <div class="project-meta">
+        <span>🏫 Universidad de Zaragoza</span>
+        <span>📅 04/2023 – 12/2023</span>
+      </div>
+      <div class="project-desc">
+        <span data-lang="en">Achieved heterologous production, immobilization, and application of soybean lipoxygenase to catalyze the regioselective oxygenation of docosahexaenoic acid (DHA) for the synthesis of high-value resolvin precursors. In parallel, developed advanced immobilized lipase biocatalysts to enhance the purification and overall yield of DHA from fish oils, providing an efficient and scalable biotechnological route for industrial omega-3 processing.</span>
+        <span data-lang="es">Se logró la producción heteróloga, inmovilización y aplicación de lipoxigenasa de soja para catalizar la oxigenación regioselectiva del ácido docosahexaenoico (DHA) para la síntesis de precursores de resolvinas de alto valor. Paralelamente, se desarrollaron biocatalizadores avanzados de lipasas inmovilizadas para mejorar la purificación y el rendimiento global de DHA a partir de aceites de pescado, proporcionando una ruta biotecnológica eficiente y escalable para el procesamiento industrial de omega-3.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="section" id="publications">
+  <div class="section-eyebrow"><span data-lang="en">Publications</span><span data-lang="es">Publicaciones</span></div>
+  <h2 class="section-title"><span data-lang="en">Selected <span class="serif-w">Publications</span></span><span data-lang="es"><span class="serif-w">Publicaciones</span> Destacadas</span></h2>
+  <p class="section-sub">
+    <span data-lang="en">45 peer-reviewed publications (70% Q1). Full list also available on Google Scholar and ORCID.</span>
+    <span data-lang="es">45 publicaciones revisadas por pares (70% Q1). Lista completa también disponible en Google Scholar y ORCID.</span>
+  </p>
+  <div class="pub-list">
+
+    <div class="pub-item">
+      <div class="pub-year">2025</div>
+      <div>
+        <div class="pub-title">Solid/Gas Synthesis of Isobutyl Propionate Catalyzed by Packed-Bed CalB Cross-Linked Enzyme Aggregates (CLEA)</div>
+        <div class="pub-authors">Cruz-Martínez YA, … <strong>Velasco-Lozano S*</strong>, Huerta-Ochoa S*</div>
+        <div class="pub-journal">ACS Omega, 2025 · DOI: 10.1021/acsomega.5c09523</div>
+      </div>
+      <div class="pub-badge">Q2 · IF 4.3</div>
+    </div>
+
+    <div class="pub-item has-ga">
+      <div class="pub-year">2025</div>
+      <div>
+        <div class="pub-title">Immobilization of Thrombin on Agarose-Based Supports for Affinity Tag Removal</div>
+        <div class="pub-authors">Almada JC, <strong>Velasco-Lozano S*</strong> et al.</div>
+        <div class="pub-journal">Biomacromolecules, 26(7), 4718–4729 · DOI: 10.1021/acs.biomac.5c01010</div>
+      </div>
+      <img class="pub-ga" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/ga_thrombin_2025.png" alt="Graphical Abstract" onclick="openGa(this.src)">
+      <div class="pub-badge">Q1 · IF 6.09</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2024</div>
+      <div>
+        <div class="pub-title">Optimized Spatial Configuration of Heterogeneous Biocatalysts Maximizes Cell-Free Biosynthesis of ω-Hydroxy and ω-Amino Acids</div>
+        <div class="pub-authors">Santiago-Arcos J, <strong>Velasco-Lozano S*</strong>, López-Gallego F* et al.</div>
+        <div class="pub-journal">ACS Sustainable Chemistry & Engineering, 12(25), 9474–9489 · DOI: 10.1021/acssuschemeng.4c02396</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 7.1</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2024</div>
+      <div>
+        <div class="pub-title">Engineering Bio-brick Protein Scaffolds for Organizing Enzyme Assemblies</div>
+        <div class="pub-authors">Ledesma-Fernández A, <strong>Velasco-Lozano S</strong>, Campos-Muelas P, Madrid R, López-Gallego F, Cortajarena AL</div>
+        <div class="pub-journal">Protein Science, 33(5), e4984 · DOI: 10.1002/pro.4984</div>
+      </div>
+      <div class="pub-badge">Q1</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2024</div>
+      <div>
+        <div class="pub-title">Thermosensitive Chitosan-Based Hydrogel: a Vehicle for Overcoming the Limitations of Nose-to-Brain Cell Therapy</div>
+        <div class="pub-authors">Ojeda-Hernández DD, <strong>Velasco-Lozano S</strong>, Fraile-Dolado JM et al.</div>
+        <div class="pub-journal">Acta Biomaterialia · DOI: 10.1016/j.actbio.2024.09.002</div>
+      </div>
+      <div class="pub-badge">Q1</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2023</div>
+      <div>
+        <div class="pub-title">Mechanistic Studies of a Lipase Unveil Effect of pH on Hydrolysis Products of Small PET Modules</div>
+        <div class="pub-authors">Świderek K, <strong>Velasco-Lozano S</strong>, Moliner V* et al.</div>
+        <div class="pub-journal">Nature Communications, 14(1), 3556 · DOI: 10.1038/s41467-023-39201-1</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 14.7 · 58 cit.</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2023</div>
+      <div>
+        <div class="pub-title">Engineered Repeat Proteins as Scaffolds to Assemble Multi-Enzyme Systems for Efficient Cell-Free Biosynthesis</div>
+        <div class="pub-authors">Ledesma-Fernández A, <strong>Velasco-Lozano S</strong>, Cortajarena AL* et al.</div>
+        <div class="pub-journal">Nature Communications, 14(1), 2587 · DOI: 10.1038/s41467-023-38304-z</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 14.7 · 41 cit.</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2023</div>
+      <div>
+        <div class="pub-title">Multienzyme Coimmobilization on Triheterofunctional Supports</div>
+        <div class="pub-authors">Santiago-Arcos J, <strong>Velasco-Lozano S*</strong>, López-Gallego F*</div>
+        <div class="pub-journal">Biomacromolecules, 24(2), 929–942 · DOI: 10.1021/acs.biomac.2c01364</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 6.0 · 15 cit.</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2023</div>
+      <div>
+        <div class="pub-title">Self-Sufficient Heterogeneous Biocatalysis through Boronic Acid-Diol Complexation of Adenylated Cofactors</div>
+        <div class="pub-authors">Diamanti E, <strong>Velasco-Lozano S</strong>, Grajales-Hernández DA, Orrego-Herrera A, DiSilvio D, Fraile JM, López-Gallego F</div>
+        <div class="pub-journal">ACS Sustainable Chemistry & Engineering, 11(39), 14409–14421 · DOI: 10.1021/acssuschemeng.3c02958</div>
+      </div>
+      <div class="pub-badge">Q1</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2023</div>
+      <div>
+        <div class="pub-title">Spatial Organization of Immobilized Multienzyme Systems Improves the Deracemization of Alkyl Glyceryl Ethers</div>
+        <div class="pub-authors">Grajales-Hernández DA, Diamanti E, Moro R, <strong>Velasco-Lozano S</strong>, Pires E, López-Gallego F</div>
+        <div class="pub-journal">ACS Catalysis, 13(23), 15620–15632 · DOI: 10.1021/acscatal.3c02615</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 12.9</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2022</div>
+      <div>
+        <div class="pub-title">Cell-Free Biosynthesis of ω-Hydroxy Acids Boosted by a Synergistic Combination of Alcohol Dehydrogenases</div>
+        <div class="pub-authors"><strong>Velasco-Lozano S</strong>, Santiago-Arcos J, … López-Gallego F*</div>
+        <div class="pub-journal">ChemSusChem, 15(9), e202200397 · DOI: 10.1002/cssc.202200397</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 7.5 · 12 cit.</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2022</div>
+      <div>
+        <div class="pub-title">Metal Substrate Catalysis in the Confined Space for Platinum Drug Delivery</div>
+        <div class="pub-authors"><strong>Velasco-Lozano S</strong>, Alonso-DeCastro S, Sánchez-Cano C, Benítez-Mateos AI, López-Gallego F, Salassa L</div>
+        <div class="pub-journal">Chemical Science, 13(1), 59–67 · DOI: 10.1039/d1sc05151b</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 9.9</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2021</div>
+      <div>
+        <div class="pub-title">Functionalization of Porous Cellulose with Glyoxyl Groups as a Carrier for Enzyme Immobilization and Stabilization</div>
+        <div class="pub-authors">Martins-de-Oliveira S, <strong>Velasco-Lozano S</strong>, Orrego-Herrera A, Rocha-Martín J, Moreno-Pérez S, Fraile JM, López-Gallego F</div>
+        <div class="pub-journal">Biomacromolecules, 22(2), 927–937 · DOI: 10.1021/acs.biomac.0c01608</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 6.0</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2021</div>
+      <div>
+        <div class="pub-title">One-Pot Biotransformation of Glycerol into Serinol Catalysed by Biocatalytic Composites Made of Whole Cells and Immobilised Enzymes</div>
+        <div class="pub-authors">Ripoll M, <strong>Velasco-Lozano S</strong>, Jackson E, Diamanti E, Betancor L, López-Gallego F</div>
+        <div class="pub-journal">Green Chemistry, 23, 1140–1146 · DOI: 10.1039/D0GC03918G</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 9.8</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2020</div>
+      <div>
+        <div class="pub-title">Stabilization of ω-Transaminase from Pseudomonas fluorescens by Immobilization Techniques</div>
+        <div class="pub-authors"><strong>Velasco-Lozano S*</strong>, … Betancor L*</div>
+        <div class="pub-journal">International Journal of Biological Macromolecules, 164, 4318–4328 · DOI: 10.1016/j.ijbiomac.2020.09.003</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 8.5 · 22 cit.</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2020</div>
+      <div>
+        <div class="pub-title">Co-immobilization and Colocalization of Multi-Enzyme Systems for the Cell-Free Biosynthesis of Aminoalcohols</div>
+        <div class="pub-authors"><strong>Velasco-Lozano S</strong>, Santiago-Arcos J, Mayoral JA, López-Gallego F*</div>
+        <div class="pub-journal">ChemCatChem, 12(11), 3030–3041 · DOI: 10.1002/cctc.201902404</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 4.8 · 37 cit.</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2020</div>
+      <div>
+        <div class="pub-title">Selective Oxidation of Alkyl and Aryl Glyceryl Monoethers Catalysed by an Engineered and Immobilised Glycerol Dehydrogenase</div>
+        <div class="pub-authors"><strong>Velasco-Lozano S</strong>, Roca M, Leal-Duaso A, Mayoral JA, Pires E, Moliner V, López-Gallego F</div>
+        <div class="pub-journal">Chemical Science, 11(44), 12009–12020 · DOI: 10.1039/D0SC04471G</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 9.9</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2020</div>
+      <div>
+        <div class="pub-title">Carrier-Bound and Carrier-Free Immobilization of Type A Feruloyl Esterase from Aspergillus niger</div>
+        <div class="pub-authors">Grajales-Hernández DA, <strong>Velasco-Lozano S</strong>, Armendáriz-Ruiz M, Rodríguez-González JA, Camacho-Ruiz RM, Asaff-Torres A, López-Gallego F, Mateos-Díaz JC</div>
+        <div class="pub-journal">Journal of Biotechnology, 316, 6–16 · DOI: 10.1016/j.jbiotec.2020.04.004</div>
+      </div>
+      <div class="pub-badge">Q2</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2020</div>
+      <div>
+        <div class="pub-title">Chitosan-Based CLEAs from Aspergillus niger Type A Feruloyl Esterase: High-Productivity Biocatalyst for Alkyl Ferulate Synthesis</div>
+        <div class="pub-authors">Grajales-Hernández DA, Armendáriz-Ruiz M, <strong>Velasco-Lozano S</strong>, López-Gallego F, Mateos-Díaz JC</div>
+        <div class="pub-journal">Applied Microbiology and Biotechnology, 104(23), 10033–10045 · DOI: 10.1007/s00253-020-10907-2</div>
+      </div>
+      <div class="pub-badge">Q1</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2019</div>
+      <div>
+        <div class="pub-title">Biocatalytic Protein-Based Materials for Integration into Energy Devices</div>
+        <div class="pub-authors">Sánchez-de-Alcázar D, <strong>Velasco-Lozano S</strong>, Zaballos N, López-Gallego F, Cortajarena AL</div>
+        <div class="pub-journal">ChemBioChem, 20(15), 1977–1985 · DOI: 10.1002/cbic.201900047</div>
+      </div>
+      <div class="pub-badge">Q2</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2018</div>
+      <div>
+        <div class="pub-title">Coupling Enzymes and Inorganic Piezoelectric Materials for Electricity Production from Renewable Fuels</div>
+        <div class="pub-authors"><strong>Velasco-Lozano S</strong>, Knez M, López-Gallego F</div>
+        <div class="pub-journal">ACS Applied Energy Materials, 1(5), 2032–2040 · DOI: 10.1021/acsaem.7b00328</div>
+      </div>
+      <div class="pub-badge">Q1</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2018</div>
+      <div>
+        <div class="pub-title">Self-Sufficient Flow-Biocatalysis by Coimmobilization of Pyridoxal 5′-Phosphate and ω-Transaminases onto Porous Carriers</div>
+        <div class="pub-authors">Benítez-Mateos AI, Contente M, <strong>Velasco-Lozano S</strong>, Paradisi F, López-Gallego F</div>
+        <div class="pub-journal">ACS Sustainable Chemistry & Engineering, 6(10), 13151–13159 · DOI: 10.1021/acssuschemeng.8b02672</div>
+      </div>
+      <div class="pub-badge">Q1</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2018</div>
+      <div>
+        <div class="pub-title">Sustainable and Continuous Synthesis of Enantiopure l-Amino Acids by Using a Versatile Immobilised Multienzyme System</div>
+        <div class="pub-authors"><strong>Velasco-Lozano S</strong>, da Silva ES, Llop J, López-Gallego F</div>
+        <div class="pub-journal">ChemBioChem, 19(4), 395–403 · DOI: 10.1002/cbic.201700560</div>
+      </div>
+      <div class="pub-badge">Q2</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2017</div>
+      <div>
+        <div class="pub-title">Co-immobilized Phosphorylated Cofactors and Enzymes as Self-Sufficient Heterogeneous Biocatalysts for Chemical Processes</div>
+        <div class="pub-authors"><strong>Velasco-Lozano S</strong>, Benítez-Mateos AI, López-Gallego F*</div>
+        <div class="pub-journal">Angewandte Chemie International Edition, 56(3), 771–775 · DOI: 10.1002/anie.201609758</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 16.6 · 185 cit.</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-year">2014</div>
+      <div>
+        <div class="pub-title">Carrier-Free Immobilization of Lipase from Candida rugosa with Polyethyleneimines by Carboxyl-Activated Cross-Linking</div>
+        <div class="pub-authors"><strong>Velasco-Lozano S</strong>, López-Gallego F, Vázquez-Duhalt R, Mateos-Díaz JC, Guisán-Seijas JM, Favela-Torres E</div>
+        <div class="pub-journal">Biomacromolecules, 15(5), 1896–1903 · DOI: 10.1021/bm500333v</div>
+      </div>
+      <div class="pub-badge">Q1 · IF 6.0</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- TEAM -->
+<section class="section section-alt" id="team">
+  <div class="section-eyebrow"><span data-lang="en">People</span><span data-lang="es">Personas</span></div>
+  <h2 class="section-title"><span data-lang="en">The <span class="serif-w">Group</span></span><span data-lang="es">El <span class="serif-w">Grupo</span></span></h2>
+  <p class="section-sub">
+    <span data-lang="en">A multidisciplinary team at ISQCH, Zaragoza, pushing the frontiers of biocatalysis.</span>
+    <span data-lang="es">Un equipo multidisciplinar en el ISQCH de Zaragoza. Integrado en el <a href="https://cheso.unizar.es/" style="color:var(--teal2)">grupo CHESO (E37_23R)</a>.</span>
+  </p>
+
+  <!-- Tabs -->
+  <div class="team-tabs">
+    <button class="team-tab active" onclick="showTeamPanel('current', this)"><span data-lang="en">Current Members</span><span data-lang="es">Miembros Actuales</span></button>
+    <button class="team-tab" onclick="showTeamPanel('collabs', this)"><span data-lang="en">Collaborators</span><span data-lang="es">Colaboradores</span></button>
+  </div>
+
+  <!-- Current Members Panel -->
+  <div class="team-panel active" id="panel-current">
+    <!-- PI -->
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem;margin-top:0.5rem">
+      <span data-lang="en">Principal Investigator</span><span data-lang="es">Investigadora Principal</span>
+    </p>
+    <div style="margin-bottom:2rem">
+      <div class="member-card-wide" style="max-width:600px">
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana.PNG" alt="Susana Velasco">
+        <div class="member-card-wide-body">
+          <div class="m-name">Dr. Susana Velasco Lozano</div>
+          <div class="m-role"><span data-lang="en">Principal Investigator</span><span data-lang="es">Investigadora Principal</span></div>
+          <div class="m-detail"><span data-lang="en">Científica Titular, CSIC · ISQCH, CSIC–Universidad de Zaragoza</span><span data-lang="es">Científica Titular, CSIC · ISQCH, CSIC–Universidad de Zaragoza</span></div>
+        </div>
+        <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_susana.jpg" alt="Susana in the lab">
+      </div>
+    </div>
+
+    <!-- Postdocs -->
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">
+      <span data-lang="en">Postdoctoral Researchers</span><span data-lang="es">Investigadores Postdoctorales</span>
+    </p>
+    <div class="members-wide-grid" style="margin-bottom:2rem">
+      <div class="member-card-wide">
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_juan.jpg" alt="Juan Almada">
+        <div class="member-card-wide-body">
+          <div class="m-name">Dr. Juan C. Almada</div>
+          <div class="m-role"><span data-lang="en">Postdoctoral Researcher · 2023–2027</span><span data-lang="es">Investigador Postdoctoral · 2023–2027</span></div>
+          <div class="m-detail">
+            <span data-lang="en">Juan is an Argentinian biochemist working at the heart of the PIEZOZYMES project. His work combines protein engineering and electrochemistry — engineering oxidoreductase variants, developing strategies for their oriented immobilization on piezoelectric materials, and evaluating their electrochemical performance. He also leads the development of high-throughput analytical methods (HTS-spectrophotometric and HPLC) to accelerate biocatalyst screening.</span>
+            <span data-lang="es">Juan es un bioquímico argentino que trabaja en el núcleo del proyecto PIEZOZYMES. Su trabajo combina ingeniería de proteínas y electroquímica — ingeniería de variantes de oxidorreductasas, desarrollo de estrategias para su inmovilización orientada sobre materiales piezoeléctricos y evaluación de su rendimiento electroquímico. También lidera el desarrollo de métodos analíticos de alto rendimiento (HTS-espectrofotométrico y HPLC) para acelerar el cribado de biocatalizadores.</span>
+          </div>
+        </div>
+        <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_juan.png" alt="Juan in the lab">
+      </div>
+      <div class="member-card-wide">
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_yasmine.png" alt="Yasmine Kadri">
+        <div class="member-card-wide-body">
+          <div class="m-name">Dr. Yasmine Kadri</div>
+          <div class="m-role"><span data-lang="en">Postdoctoral Researcher · 2023–2025</span><span data-lang="es">Investigadora Postdoctoral · 2023–2025</span></div>
+          <div class="m-detail">
+            <span data-lang="en">Yasmine holds a PhD in Chemistry. This Tunisian researcher brings deep expertise in materials science to the PIEZOZYMES project, designing and synthesizing metal-perovskite piezoelectric materials and characterizing them through physicochemical and electrochemical methods. Her work also encompasses enzyme evaluation and stabilization strategies on gold and glassy carbon electrodes.</span>
+            <span data-lang="es">Yasmine es doctora en Química. Esta investigadora tunecina aporta una profunda experiencia en ciencia de materiales al proyecto PIEZOZYMES, diseñando y sintetizando materiales piezoeléctricos metal-perovskita y caracterizándolos mediante métodos fisicoquímicos y electroquímicos. Su trabajo también abarca la evaluación y estabilización de enzimas sobre electrodos de oro y carbono vítreo.</span>
+          </div>
+        </div>
+        <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_yasmine.png" alt="Yasmine in the lab">
+      </div>
+      <div class="member-card-wide">
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_yahir.jpg" alt="Yahir Cruz">
+        <div class="member-card-wide-body">
+          <div class="m-name">Dr. Yahir A. Cruz Martínez</div>
+          <div class="m-role"><span data-lang="en">Postdoctoral Researcher · 2026–2027</span><span data-lang="es">Investigador Postdoctoral · 2026–2027</span></div>
+          <div class="m-detail">
+            <span data-lang="en">Yahir holds a PhD in Biotechnology. This Mexican researcher joined the group as a visiting PhD student in 2024 and is now a full postdoctoral member. His research focuses on piezoelectric-driven biocatalysis, building on his previous work on carrier-free immobilized lipases for solid/gas ester synthesis.</span>
+            <span data-lang="es">Yahir es doctor en Biotecnología. Este investigador mexicano se incorporó al grupo como estudiante de doctorado visitante en 2024 y ahora es miembro postdoctoral de pleno derecho. Su investigación se centra en la biocatálisis impulsada por piezoelectricidad, basándose en su trabajo previo sobre lipasas inmovilizadas sin soporte para la síntesis de ésteres en fase sólido/gas.</span>
+          </div>
+        </div>
+        <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_yahir.jpg" alt="Yahir in the lab">
+      </div>
+    </div>
+
+    <!-- PhD Students -->
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">
+      <span data-lang="en">PhD Students</span><span data-lang="es">Doctorandos</span>
+    </p>
+    <div class="members-wide-grid">
+      <div class="member-card-wide">
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_miguel.jpg" alt="Miguel Marco-Martín">
+        <div class="member-card-wide-body">
+          <div class="m-name">MSc Miguel Marco-Martín</div>
+          <div class="m-role"><span data-lang="en">PhD Student · 2024–2028</span><span data-lang="es">Doctorando · 2024–2028</span></div>
+          <div class="m-detail">
+            <span data-lang="en">Miguel holds a Master's in Molecular Approaches in Health Sciences. He is currently developing his PhD thesis on the integration of piezoelectric functionalities into immobilized enzyme cascades for the biosynthesis of α-hydroxy acids. Expected defense: June 2028. <em>PIEZOZYMES project.</em></span>
+            <span data-lang="es">Miguel es Máster en Aproximaciones Moleculares en Ciencias de la Salud. Actualmente desarrolla su tesis doctoral sobre la integración de funcionalidades piezoeléctricas en cascadas enzimáticas inmovilizadas para la biosíntesis de ácidos α-hidroxi. Defensa prevista: junio 2028. <em>Proyecto PIEZOZYMES.</em></span>
+          </div>
+        </div>
+        <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_miguel.jpg" alt="Miguel in the lab">
+      </div>
+      <div class="member-card-wide">
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_uriel.png" alt="Uriel Ruiz-Castillo">
+        <div class="member-card-wide-body">
+          <div class="m-name">MSc Uriel Ruiz-Castillo</div>
+          <div class="m-role"><span data-lang="en">PhD Student · 2025–2029</span><span data-lang="es">Doctorando · 2025–2029</span></div>
+          <div class="m-detail">
+            <span data-lang="en">Uriel holds a Master's in Biotechnology. This Mexican PhD student is working on piezoelectric-driven cascade biotransformations applied to the synthesis of alkyl-δ-valerolactones — a challenging and exciting frontier in mechanochemical biocatalysis. Expected defense: December 2029. <em>PIEZOZYMES project.</em></span>
+            <span data-lang="es">Uriel es Máster en Biotecnología. Este doctorando mexicano trabaja en biotransformaciones en cascada impulsadas por piezoelectricidad aplicadas a la síntesis de alquil-δ-valerolactonas — una frontera apasionante en biocatálisis mecanoquímica. Defensa prevista: diciembre 2029. <em>Proyecto PIEZOZYMES.</em></span>
+          </div>
+        </div>
+        <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_uriel.png" alt="Uriel in the lab">
+      </div>
+      <div class="member-card-wide">
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_rosario.jpg" alt="Rosario López-Magaña">
+        <div class="member-card-wide-body">
+          <div class="m-name">MSc Rosario López-Magaña</div>
+          <div class="m-role"><span data-lang="en">PhD Student · Starting February 2026</span><span data-lang="es">Doctoranda · Incorporación febrero 2026</span></div>
+          <div class="m-detail">
+            <span data-lang="en">Rosario holds a Master's in Sciences and will be joining the group in February 2026. She will develop her PhD thesis under the SiBioCat project (PID2024-160687OA-I00), working on silk-based biomaterials as dynamic platforms for multi-enzyme systems.</span>
+            <span data-lang="es">Rosario es Máster en Ciencias y se incorporará al grupo en febrero de 2026. Desarrollará su tesis doctoral en el marco del proyecto SiBioCat (PID2024-160687OA-I00), trabajando en biomateriales basados en seda como plataformas dinámicas para sistemas multienzimáticos.</span>
+          </div>
+        </div>
+        <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_rosario.jpg" alt="Rosario in the lab">
+      </div>
+    </div>
+  </div>
+
+  <!-- Collaborators Panel -->
+  <div class="team-panel" id="panel-collabs">
+    <p style="font-size:0.92rem;color:var(--mid);margin-bottom:2rem;line-height:1.7;max-width:60ch">
+      <span data-lang="en">Active scientific collaborations across Europe and Latin America, spanning biocatalysis, materials science, and biomedical research.</span>
+      <span data-lang="es">Colaboraciones científicas activas en Europa y Latinoamérica, en biocatálisis, ciencia de materiales e investigación biomédica.</span>
+    </p>
+
+    <!-- Spain -->
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">🇪🇸 Spain</p>
+    <div class="collab-grid" style="margin-bottom:2rem">
+      <div class="collab-card">
+        <div class="collab-name">Prof. Fernando López-Gallego</div>
+        <div class="collab-role">CIC biomaGUNE · San Sebastián</div>
+        <div class="collab-desc"><span data-lang="en">Pioneer in heterogeneous biocatalysis and multi-enzyme systems. Long-standing collaboration on enzyme immobilization and spatial organization.</span><span data-lang="es">Pionero en biocatálisis heterogénea y sistemas multienzimáticos. Colaboración de larga trayectoria en inmovilización enzimática y organización espacial.</span></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-name">Dr. Ulises Gómez-Pinedo</div>
+        <div class="collab-role">Hospital Clínico San Carlos · Madrid</div>
+        <div class="collab-desc"><span data-lang="en">Neuroscience and cell therapy expert. Collaboration on biomaterial-based platforms for nose-to-brain drug delivery.</span><span data-lang="es">Experto en neurociencia y terapia celular. Colaboración en plataformas basadas en biomateriales para administración nariz-cerebro.</span></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-name">Dr. José María Fraile</div>
+        <div class="collab-role"><span data-lang="en">CSIC Scientific Researcher · Scientific Director of ISQCH</span><span data-lang="es">Investigador Científico CSIC · Director Científico del ISQCH</span></div>
+        <div class="collab-desc"><span data-lang="en">Expert in solid-state NMR. Collaboration focuses on material characterization for enzyme immobilization.</span><span data-lang="es">Experto en RMN en estado sólido. La colaboración se centra en la caracterización de materiales para la inmovilización enzimática.</span></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-name">Prof. Elísabet Pires</div>
+        <div class="collab-role"><span data-lang="en">Full Professor · Universidad de Zaragoza</span><span data-lang="es">Catedrática · Universidad de Zaragoza</span></div>
+        <div class="collab-desc"><span data-lang="en">Full Professor. Expert in design and synthesis of glycerol-based green solvents.</span><span data-lang="es">Catedrática. Experta en diseño y síntesis de disolventes verdes basados en glicerol.</span></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-name">Dr. Alejandro Leal-Duaso</div>
+        <div class="collab-role"><span data-lang="en">Postdoctoral Researcher · ISQCH</span><span data-lang="es">Investigador Postdoctoral · ISQCH</span></div>
+        <div class="collab-desc"><span data-lang="en">Expert in electrocatalysis. Collaboration involves the development of hybrid electrode–biocatalyst systems.</span><span data-lang="es">Experto en electrocatálisis. La colaboración implica el desarrollo de sistemas híbridos electrodo–biocatalizador.</span></div>
+      </div>
+    </div>
+
+    <!-- Mexico -->
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">🇲🇽 Mexico</p>
+    <div class="collab-grid" style="margin-bottom:2rem">
+      <div class="collab-card">
+        <div class="collab-name">Prof. Sergio Huerta</div>
+        <div class="collab-role">Universidad Autónoma Metropolitana · Mexico City</div>
+        <div class="collab-desc"><span data-lang="en">His expertise focuses mainly on bioconversion process engineering using whole cells in partition and solid/gas bioreactors.</span><span data-lang="es">Su experiencia se centra principalmente en ingeniería de procesos de bioconversión usando células completas en biorreactores de partición y sólido/gas.</span></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-name">Dr. Juan Carlos Mateos</div>
+        <div class="collab-role">CIATEJ · Guadalajara</div>
+        <div class="collab-desc"><span data-lang="en">Director of the Industrial Biotechnology area at CIATEJ, and Investigador Titular C, specializing in the implementation of rapid screening and selection methods, as well as in the purification and characterization of hydrolytic enzymes.</span><span data-lang="es">Director del área de Biotecnología Industrial del CIATEJ, es investigador titular C con más de 15 años de experiencia en la implementación de métodos rápidos de búsqueda y selección, así como en la purificación y caracterización de enzimas hidrolíticas.</span></div>
+      </div>
+    </div>
+
+    <!-- Switzerland -->
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">🇨🇭 Switzerland</p>
+    <div class="collab-grid" style="margin-bottom:2rem">
+      <div class="collab-card">
+        <div class="collab-name">Prof. Francesca Paradisi</div>
+        <div class="collab-role">University of Bern</div>
+        <div class="collab-desc"><span data-lang="en">Leading expert in flow biocatalysis and continuous biotransformations for sustainable synthesis.</span><span data-lang="es">Experta destacada en biocatálisis en flujo y biotransformaciones continuas para síntesis sostenible.</span></div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-name">Dr. David Roura</div>
+        <div class="collab-role">inSEIT · Switzerland</div>
+        <div class="collab-desc"><span data-lang="en">Industry collaboration focused on the smart, integrated system to accelerate enzyme immobilization — combining predictive models, experimental screening, and data-driven optimization.</span><span data-lang="es">Colaboración industrial centrada en un sistema inteligente e integrado para acelerar la inmovilización enzimática — combinando modelos predictivos, cribado experimental y optimización basada en datos.</span></div>
+      </div>
+    </div>
+
+    <!-- Uruguay -->
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">🇺🇾 Uruguay</p>
+    <div class="collab-grid" style="margin-bottom:2rem">
+      <div class="collab-card">
+        <div class="collab-name">Prof. Lorena Betancor</div>
+        <div class="collab-role">Universidad ORT · Montevideo</div>
+        <div class="collab-desc"><span data-lang="en">Expert in enzyme immobilization and biocatalyst stabilization for industrial and environmental applications.</span><span data-lang="es">Experta en inmovilización enzimática y estabilización de biocatalizadores para aplicaciones industriales y ambientales.</span></div>
+      </div>
+    </div>
+
+    <!-- Germany -->
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">🇩🇪 Germany</p>
+    <div class="collab-grid">
+      <div class="collab-card">
+        <div class="collab-name">Dr. Ana Isabel Benítez</div>
+        <div class="collab-role">Technical University of Munich</div>
+        <div class="collab-desc"><span data-lang="en">Her research focuses on nature-inspired multi-enzyme systems to develop sustainable biocatalysts and protein-based biomaterials for biomedical and biotechnological applications, with expertise in extremotolerant enzymes, enzyme immobilization, and intrinsically disordered proteins.</span><span data-lang="es">Su investigación se centra en sistemas multienzimáticos inspirados en la naturaleza para desarrollar biocatalizadores sostenibles y biomateriales proteicos para aplicaciones biomédicas y biotecnológicas, con experiencia en enzimas extremotolerantes, inmovilización enzimática y proteínas intrínsecamente desordenadas.</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="section" id="news">
+  <div class="section-eyebrow"><span data-lang="en">News</span><span data-lang="es">Noticias</span></div>
+  <h2 class="section-title"><span data-lang="en">Latest <span class="serif-w">Updates</span></span><span data-lang="es">Últimas <span class="serif-w">Novedades</span></span></h2>
+  <p class="section-sub">
+    <span data-lang="en">Stay up to date with the group's latest achievements, publications, and events.</span>
+    <span data-lang="es">Mantente al día con los últimos logros, publicaciones y eventos del grupo.</span>
+  </p>
+  <div class="news-grid">
+    <div class="news-card">
+      <span class="n-chip chip-pub"><span data-lang="en">New Project</span><span data-lang="es">Nuevo Proyecto</span></span>
+      <div class="n-date">September 2025</div>
+      <div class="n-title"><span data-lang="en">PID2024 project funded: Silk Biomaterials as Dynamic Platforms for Multi-Enzyme Systems (112,500€, AEI)</span><span data-lang="es">Proyecto PID2024 financiado: Biomateriales de Seda como Plataformas Dinámicas para Sistemas Multienzimáticos (112.500€, AEI)</span></div>
+    </div>
+    <div class="news-card">
+      <span class="n-chip chip-award"><span data-lang="en">Position</span><span data-lang="es">Plaza</span></span>
+      <div class="n-date">2025</div>
+      <div class="n-title"><span data-lang="en">Appointed Científica Titular at CSIC — permanent tenure-track position</span><span data-lang="es">Nombramiento como Científica Titular del CSIC — plaza permanente</span></div>
+    </div>
+    <div class="news-card">
+      <span class="n-chip chip-grant">Grant</span>
+      <div class="n-date">June 2022</div>
+      <div class="n-title"><span data-lang="en">ERC Starting Grant awarded — PIEZOZYMES project launched (1.5M€, 2022–2027)</span><span data-lang="es">ERC Starting Grant concedida — proyecto PIEZOZYMES lanzado (1,5M€, 2022–2027)</span></div>
+    </div>
+    <div class="news-card">
+      <span class="n-chip chip-pub"><span data-lang="en">Outreach</span><span data-lang="es">Divulgación</span></span>
+      <div class="n-date">2024</div>
+      <div class="n-title"><a href="https://ucc.unizar.es/11f/2024" target="_blank" style="color:var(--teal2);text-decoration:none;font-weight:600"><span data-lang="en">↗ Soy científica y vivo en tu barrio — 11F, Universidad de Zaragoza</span><span data-lang="es">↗ Soy científica y vivo en tu barrio — 11F, Universidad de Zaragoza</span></a></div>
+    </div>
+    <div class="news-card">
+      <span class="n-chip chip-award"><span data-lang="en">Recognition</span><span data-lang="es">Reconocimiento</span></span>
+      <div class="n-date">2024</div>
+      <div class="n-title"><a href="https://cientificasinnovadoras.fecyt.es/cientificas/susana-velasco-lozano" target="_blank" style="color:var(--teal2);text-decoration:none;font-weight:600"><span data-lang="en">↗ Featured in FECYT's Científicas Innovadoras programme</span><span data-lang="es">↗ Destacada en el programa Científicas Innovadoras de FECYT</span></a></div>
+    </div>
+  </div>
+
+  <!-- Conferences -->
+  <h3 style="font-size:1.1rem;font-weight:700;margin-top:3rem;margin-bottom:0.5rem;letter-spacing:-0.02em"><span data-lang="en">Conference <span class="serif-w">Participation</span></span><span data-lang="es"><span class="serif-w">Participación</span> en Congresos</span></h3>
+  <p style="font-size:0.88rem;color:var(--mid);margin-bottom:2rem"><span data-lang="en">Oral and poster presentations at international and national conferences.</span><span data-lang="es">Presentaciones orales y en póster en congresos internacionales y nacionales.</span></p>
+
+  <div style="display:flex;flex-direction:column;gap:0.75rem;max-width:760px">
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;gap:1rem;align-items:start;padding:1rem 1.25rem;background:white;border-radius:12px;border:1.5px solid var(--border)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal2);font-weight:700;padding-top:0.1rem">2025</div>
+      <div>
+        <div style="font-weight:600;font-size:0.88rem">Biotrans 2025 · Basel</div>
+        <div style="font-size:0.8rem;color:var(--mid);margin-top:0.2rem"><span data-lang="en">4 poster presentations</span><span data-lang="es">4 presentaciones en póster</span></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;gap:1rem;align-items:start;padding:1rem 1.25rem;background:white;border-radius:12px;border:1.5px solid var(--border)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal2);font-weight:700;padding-top:0.1rem">2025</div>
+      <div>
+        <div style="font-weight:600;font-size:0.88rem">Biotec 2025 · Barcelona</div>
+        <div style="font-size:0.8rem;color:var(--mid);margin-top:0.2rem"><span data-lang="en">1 oral + 2 poster presentations</span><span data-lang="es">1 presentación oral + 2 pósters</span></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;gap:1rem;align-items:start;padding:1rem 1.25rem;background:white;border-radius:12px;border:1.5px solid var(--border)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal2);font-weight:700;padding-top:0.1rem">2025</div>
+      <div>
+        <div style="font-weight:600;font-size:0.88rem">IV Simposio de Química Molecular y Catálisis · Zaragoza</div>
+        <div style="font-size:0.8rem;color:var(--mid);margin-top:0.2rem"><span data-lang="en">3 oral presentations · 🏆 Oral presentation award</span><span data-lang="es">3 presentaciones orales · 🏆 Premio a la mejor presentación oral</span></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;gap:1rem;align-items:start;padding:1rem 1.25rem;background:white;border-radius:12px;border:1.5px solid var(--border)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal2);font-weight:700;padding-top:0.1rem">2024</div>
+      <div>
+        <div style="font-weight:600;font-size:0.88rem">China–Spain Science and Technology Cooperation Event · Zaragoza</div>
+        <div style="font-size:0.8rem;color:var(--mid);margin-top:0.2rem"><span data-lang="en">1 invited lecture</span><span data-lang="es">1 conferencia invitada</span></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;gap:1rem;align-items:start;padding:1rem 1.25rem;background:white;border-radius:12px;border:1.5px solid var(--border)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal2);font-weight:700;padding-top:0.1rem">2024</div>
+      <div>
+        <div style="font-weight:600;font-size:0.88rem">IV Jornadas Españolas de Biocatálisis · San Sebastián</div>
+        <div style="font-size:0.8rem;color:var(--mid);margin-top:0.2rem"><span data-lang="en">1 poster presentation</span><span data-lang="es">1 presentación en póster</span></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;gap:1rem;align-items:start;padding:1rem 1.25rem;background:white;border-radius:12px;border:1.5px solid var(--border)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal2);font-weight:700;padding-top:0.1rem">2024</div>
+      <div>
+        <div style="font-weight:600;font-size:0.88rem">III Simposio de Química Molecular y Catálisis · Zaragoza</div>
+        <div style="font-size:0.8rem;color:var(--mid);margin-top:0.2rem"><span data-lang="en">3 poster presentations · 🏆 Poster award</span><span data-lang="es">3 presentaciones en póster · 🏆 Premio al mejor póster</span></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;gap:1rem;align-items:start;padding:1rem 1.25rem;background:white;border-radius:12px;border:1.5px solid var(--border)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal2);font-weight:700;padding-top:0.1rem">2023</div>
+      <div>
+        <div style="font-weight:600;font-size:0.88rem">Biotrans 2023 · La Rochelle</div>
+        <div style="font-size:0.8rem;color:var(--mid);margin-top:0.2rem"><span data-lang="en">1 oral + 2 poster presentations</span><span data-lang="es">1 presentación oral + 2 pósters</span></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;gap:1rem;align-items:start;padding:1rem 1.25rem;background:white;border-radius:12px;border:1.5px solid var(--border)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal2);font-weight:700;padding-top:0.1rem">2023</div>
+      <div>
+        <div style="font-weight:600;font-size:0.88rem">Biotec 2023 · Madrid</div>
+        <div style="font-size:0.8rem;color:var(--mid);margin-top:0.2rem"><span data-lang="en">1 flash oral + 1 poster presentation</span><span data-lang="es">1 flash oral + 1 póster</span></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;gap:1rem;align-items:start;padding:1rem 1.25rem;background:white;border-radius:12px;border:1.5px solid var(--border)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal2);font-weight:700;padding-top:0.1rem">2022</div>
+      <div>
+        <div style="font-weight:600;font-size:0.88rem">Trends in Enzyme Catalysis (TrEnCa) 2022 · Benicàssim</div>
+        <div style="font-size:0.8rem;color:var(--mid);margin-top:0.2rem"><span data-lang="en">1 invited lecture</span><span data-lang="es">1 conferencia invitada</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Photo Gallery placeholder -->
+  <h3 style="font-size:1.1rem;font-weight:700;margin-top:3rem;margin-bottom:0.5rem;letter-spacing:-0.02em"><span data-lang="en">📸 <span class="serif-w">Gallery</span></span><span data-lang="es">📸 <span class="serif-w">Galería</span></span></h3>
+  <p style="font-size:0.88rem;color:var(--mid);margin-bottom:1.5rem"><span data-lang="en">The group at conferences and events.</span><span data-lang="es">El grupo en congresos y eventos.</span></p>
+  <div id="conf-gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;max-width:900px">
+    <div style="background:var(--bg2);border-radius:12px;height:160px;display:flex;align-items:center;justify-content:center;color:var(--mid);font-size:0.8rem;border:1.5px dashed var(--border)"><span data-lang="en">Photos coming soon</span><span data-lang="es">Fotos próximamente</span></div>
+  </div>
+
+</section>
+
+<!-- ALUMNI -->
+<section class="section section-alt" id="ex-members">
+  <div class="section-eyebrow"><span data-lang="en">Alumni</span><span data-lang="es">Exmiembros</span></div>
+  <h2 class="section-title"><span data-lang="en">Former <span class="serif-w">Members</span></span><span data-lang="es"><span class="serif-w">Exmiembros</span> del Grupo</span></h2>
+  <p class="section-sub">
+    <span data-lang="en">Researchers who have been part of the PiezoBiocat group and gone on to exciting next steps.</span>
+    <span data-lang="es">Investigadores e investigadoras que han formado parte del grupo PiezoBiocat y han continuado su carrera.</span>
+  </p>
+  <div class="ex-grid">
+    <!-- Postdoc alumni -->
+    <div class="ex-card">
+      <div class="ex-init">MG</div>
+      <div>
+        <div class="ex-name">Dr. María Galeana-Cameo</div>
+        <div class="ex-role"><span data-lang="en">Postdoctoral Researcher</span><span data-lang="es">Investigadora Postdoctoral</span></div>
+        <div class="ex-years">6 months · 2024</div>
+        <div class="ex-next"><span data-lang="en">Now: Permanent high-school teacher</span><span data-lang="es">Ahora: Profesora de secundaria, plaza permanente</span></div>
+      </div>
+    </div>
+    <!-- Master students -->
+    <div class="ex-card">
+      <div class="ex-init">CA</div>
+      <div>
+        <div class="ex-name">Cristina Alierta-Viñao</div>
+        <div class="ex-role"><span data-lang="en">Master's Student (TFM)</span><span data-lang="es">Máster (TFM)</span></div>
+        <div class="ex-years">7 months · 2023</div>
+        <div class="ex-next"><span data-lang="en">Now: PhD in Immunology, Universidad de Zaragoza</span><span data-lang="es">Ahora: Doctoranda en Inmunología, Universidad de Zaragoza</span></div>
+      </div>
+    </div>
+    <!-- Undergrad visitors -->
+    <div class="ex-card">
+      <div class="ex-init">PD</div>
+      <div>
+        <div class="ex-name">Pierluigi G. Di Matteo</div>
+        <div class="ex-role"><span data-lang="en">Undergraduate (TFG)</span><span data-lang="es">Grado (TFG)</span></div>
+        <div class="ex-years">6 months · 2023</div>
+        <div class="ex-next"><span data-lang="en">Università degli Studi di Napoli Federico II, Italy</span><span data-lang="es">Università degli Studi di Napoli Federico II, Italia</span></div>
+      </div>
+    </div>
+    <div class="ex-card">
+      <div class="ex-init">GI</div>
+      <div>
+        <div class="ex-name">Giuliana Iannicelli</div>
+        <div class="ex-role"><span data-lang="en">Undergraduate (TFG)</span><span data-lang="es">Grado (TFG)</span></div>
+        <div class="ex-years">6 months · 2023</div>
+        <div class="ex-next"><span data-lang="en">Università degli Studi di Napoli Federico II, Italy</span><span data-lang="es">Università degli Studi di Napoli Federico II, Italia</span></div>
+      </div>
+    </div>
+    <!-- Visitors -->
+    <div class="ex-card">
+      <div class="ex-init">AV</div>
+      <div>
+        <div class="ex-name">MSc Ana Daniela Vega</div>
+        <div class="ex-role"><span data-lang="en">International Visitor</span><span data-lang="es">Visitante Internacional</span></div>
+        <div class="ex-years">6 months · 2022</div>
+        <div class="ex-next"><span data-lang="en">CIATEJ, Mexico · DOI: 10.1002/cbic.202200354</span><span data-lang="es">CIATEJ, México · DOI: 10.1002/cbic.202200354</span></div>
+      </div>
+    </div>
+    <div class="ex-card">
+      <div class="ex-init">BB</div>
+      <div>
+        <div class="ex-name">Beatriz Berrueco</div>
+        <div class="ex-role"><span data-lang="en">Industrial Visitor</span><span data-lang="es">Visitante Industrial</span></div>
+        <div class="ex-years">6 months · 2023</div>
+        <div class="ex-next"><span data-lang="en">SOLUTEX S.L., Spain — Technology Transfer Project</span><span data-lang="es">SOLUTEX S.L., España — Proyecto de Transferencia Tecnológica</span></div>
+      </div>
+    </div>
+    <div class="ex-card">
+      <div class="ex-init">CP</div>
+      <div>
+        <div class="ex-name">Carla Peiro-Sánchez</div>
+        <div class="ex-role"><span data-lang="en">Undergraduate Visitor</span><span data-lang="es">Visitante de Grado</span></div>
+        <div class="ex-years">1 month · 2025</div>
+        <div class="ex-next"><span data-lang="en">Universidad de Castilla-La Mancha, Spain</span><span data-lang="es">Universidad de Castilla-La Mancha, España</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="contact-wrap">
+    <div class="section-eyebrow" style="color:rgba(255,255,255,0.65)"><span data-lang="en">Contact</span><span data-lang="es">Contacto</span></div>
+    <h2 class="section-title" style="color:white; margin-bottom:0.5rem">
+      <span data-lang="en">Let's <span class="serif-w" style="-webkit-text-fill-color:rgba(255,255,255,0.8)">Connect</span></span>
+      <span data-lang="es"><span class="serif-w" style="-webkit-text-fill-color:rgba(255,255,255,0.8)">Conectemos</span></span>
+    </h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.7); margin-bottom:3rem">
+      <span data-lang="en">We welcome collaborations, visiting researchers, student applications, and scientific discussions.</span>
+      <span data-lang="es">Estamos abiertos a colaboraciones, investigadores visitantes, solicitudes de estudiantes y discusiones científicas.</span>
+    </p>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-p" data-lang="en">Don't hesitate to reach out — whether you're interested in joining the group, exploring a collaboration, or simply want to learn more about our work.</p>
+        <p class="contact-p" data-lang="es">No dudes en contactarnos — tanto si te interesa unirte al grupo, explorar una colaboración, o simplemente quieres saber más sobre nuestro trabajo.</p>
+      </div>
+      <div>
+        <div class="c-row">
+          <span class="c-label">Email</span>
+          <span class="c-val"><a href="mailto:svelasco@unizar.es" style="color:white">svelasco@unizar.es</a> · <a href="mailto:svelasco@isqch.csic.es" style="color:rgba(255,255,255,0.7)">svelasco@isqch.csic.es</a></span>
+        </div>
+        <div class="c-row">
+          <span class="c-label">Institute</span>
+          <span class="c-val">ISQCH · CSIC-Universidad de Zaragoza</span>
+        </div>
+        <div class="c-row">
+          <span class="c-label"><span data-lang="en">Address</span><span data-lang="es">Dirección</span></span>
+          <span class="c-val">Pedro Cerbuna 12, 50009 Zaragoza, <span data-lang="en">Spain</span><span data-lang="es">España</span></span>
+        </div>
+        <div class="c-row">
+          <span class="c-label">Scholar</span>
+          <span class="c-val">Google Scholar · ORCID 0000-0001-9478-6750</span>
+        </div>
+        <div class="c-row">
+          <span class="c-label">CHESO</span>
+          <span class="c-val"><a href="https://cheso.unizar.es/" style="color:white">cheso.unizar.es</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="ga-lightbox" id="ga-lightbox" onclick="closeGa()">
+  <span class="ga-lightbox-close">✕</span>
+  <img id="ga-lightbox-img" src="" alt="Graphical Abstract">
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">PiezoBiocat</div>
+  <div class="footer-center">
+    © 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza<br>
+    PIEZOZYMES · ERC Starting Grant · ERC-2021-STG
+  </div>
+  <div class="footer-right" style="display:flex;flex-direction:column;align-items:flex-end;gap:0.75rem">
+    <div style="display:flex;gap:1rem;align-items:center">
+      <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/logo_erc.png" alt="ERC" style="height:40px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+      <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/logo_aei.jpg" alt="AEI" style="height:40px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+    </div>
+    <span data-lang="en">Zaragoza, Spain</span><span data-lang="es">Zaragoza, España</span>
+  </div>
+</footer>
+
+<script>
+  function openGa(src) {
+    document.getElementById('ga-lightbox-img').src = src;
+    document.getElementById('ga-lightbox').classList.add('open');
+  }
+  function closeGa() {
+    document.getElementById('ga-lightbox').classList.remove('open');
+  }
+
+  // Convert DOIs to hyperlinks
+  document.querySelectorAll('.pub-journal').forEach(el => {
+    el.innerHTML = el.innerHTML.replace(
+      /DOI:\s*(10\.\S+)/g,
+      '<a href="https://doi.org/$1" target="_blank" rel="noopener" style="color:var(--teal2);text-decoration:none;font-weight:500;">DOI: $1</a>'
+    );
+  });
+
+  function setLang(lang) {
+    document.body.classList.toggle('lang-es', lang === 'es');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  }
+
+  function showTeamPanel(id, btn) {
+    document.querySelectorAll('.team-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.team-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+</script>
+</body>
+</html>
