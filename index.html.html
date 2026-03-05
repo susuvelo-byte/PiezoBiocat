@@ -25,7 +25,8 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+  html { overflow-x: hidden; max-width: 100vw; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; max-width: 100vw; }
 
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: var(--light); }
@@ -354,6 +355,13 @@
     .hero-title { font-size: 2.2rem; }
     .hero-badges { flex-wrap: wrap; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-profile { margin-top: 1rem; }
+    .timeline { padding-left: 1.2rem; }
+    .tl-item { padding-left: 1.5rem; word-break: break-word; }
+    .tl-year { font-size: 0.7rem; }
+    .tl-place { font-size: 0.9rem; }
+    .tl-desc { font-size: 0.8rem; }
     .projects-grid { grid-template-columns: 1fr; }
     .members-wide-grid { grid-template-columns: 1fr; }
     .member-card-wide { flex-wrap: wrap; padding: 1.25rem; gap: 1rem; }
@@ -363,8 +371,11 @@
     .pub-item.has-ga { grid-template-columns: 1fr !important; }
     .pub-ga { width: 100% !important; height: 160px; order: -1; }
     .pub-badge { grid-column: 1 / -1; }
-    .tl-item { padding-left: 2rem; }
     .profile-card { flex-direction: column; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-wrap { padding: 2rem 1.5rem; }
+    .research-grid { grid-template-columns: 1fr; }
+    .collab-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
