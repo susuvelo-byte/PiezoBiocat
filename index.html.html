@@ -112,7 +112,7 @@
   .pr-val { color: var(--mid); line-height: 1.5; }
 
   /* RESEARCH */
-  .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .research-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
   .r-card { background: white; border-radius: 18px; border: 1.5px solid var(--border); padding: 2.2rem; transition: all 0.25s; position: relative; overflow: hidden; }
   .r-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--grad-main); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
   .r-card:hover { box-shadow: 0 8px 32px rgba(0,191,165,0.13); transform: translateY(-3px); }
@@ -174,7 +174,7 @@
   .members-wide-grid { display: flex; flex-direction: column; gap: 1.25rem; }
 
   /* Collaborations */
-  .collab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .collab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
   .collab-card { background: white; border-radius: 16px; border: 1.5px solid var(--border); padding: 1.75rem; transition: all 0.25s; }
   .collab-card:hover { box-shadow: 0 8px 28px rgba(0,191,165,0.12); transform: translateY(-2px); }
   .collab-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
@@ -183,7 +183,7 @@
   .collab-doi { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--blue); margin-top: 0.6rem; }
 
   /* NEWS */
-  .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
   .news-card { background: white; border-radius: 18px; border: 1.5px solid var(--border); padding: 2rem; transition: all 0.25s; }
   .news-card:hover { box-shadow: 0 8px 28px rgba(0,191,165,0.12); transform: translateY(-2px); }
   .n-chip { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 6px; margin-bottom: 0.85rem; }
@@ -374,8 +374,8 @@
     .profile-card { flex-direction: column; }
     .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
     .contact-wrap { padding: 2rem 1.5rem; }
-    .research-grid { grid-template-columns: 1fr; }
-    .collab-grid { grid-template-columns: 1fr; }
+    .research-grid { grid-template-columns: 1fr !important; }
+    .collab-grid { grid-template-columns: 1fr !important; }
   }
 </style>
 </head>
