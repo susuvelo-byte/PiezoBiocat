@@ -347,6 +347,25 @@
   .hero-left > *:nth-child(4) { animation-delay: 0.35s; }
   .hero-left > *:nth-child(5) { animation-delay: 0.4s; }
   .hero-right { animation: fadeUp 0.7s ease 0.3s both; }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav-inner { padding: 0 1rem; }
+    .section, .section-alt { padding: 3rem 1.25rem; }
+    .hero-title { font-size: 2.2rem; }
+    .hero-badges { flex-wrap: wrap; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .members-wide-grid { grid-template-columns: 1fr; }
+    .member-card-wide { flex-wrap: wrap; padding: 1.25rem; gap: 1rem; }
+    .m-lab-photo { width: 100% !important; height: 180px !important; order: 3; }
+    .m-avatar-img { width: 3rem; height: 3rem; }
+    .pub-item { grid-template-columns: auto 1fr !important; gap: 0.75rem; padding: 1.25rem; }
+    .pub-item.has-ga { grid-template-columns: 1fr !important; }
+    .pub-ga { width: 100% !important; height: 160px; order: -1; }
+    .pub-badge { grid-column: 1 / -1; }
+    .tl-item { padding-left: 2rem; }
+    .profile-card { flex-direction: column; }
+  }
 </style>
 </head>
 <body>
@@ -506,7 +525,7 @@
     </div>
     <div class="about-profile">
       <div class="profile-header">
-        <div class="profile-avatar">SV</div>
+        <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana.PNG" alt="Susana Velasco Lozano" style="width:100%;height:450px;object-fit:cover;object-position:center top;display:block;border-radius:16px 16px 0 0;">
         <div class="profile-name">Susana Velasco Lozano</div>
         <div class="profile-title">Principal Investigator · PiezoBiocat Group</div>
       </div>
