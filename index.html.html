@@ -158,6 +158,10 @@
   .m-detail { font-size: 0.78rem; color: var(--mid); line-height: 1.5; margin-top: 0.5rem; }
   .m-years { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--mid); margin-top: 0.4rem; }
 
+  /* Member photos */
+  .m-avatar-img { width: 4rem; height: 4rem; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid rgba(0,191,165,0.3); box-shadow: 0 4px 16px rgba(0,191,165,0.2); }
+  .m-lab-photo { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-top: 1rem; border: 1px solid var(--border); }
+
   /* Member detail card (expanded) */
   .member-card-wide { background: white; border-radius: 18px; border: 1.5px solid var(--border); padding: 2rem 2.5rem; transition: all 0.25s; box-shadow: 0 2px 12px rgba(0,0,0,0.04); display: flex; gap: 1.5rem; align-items: flex-start; }
   .member-card-wide:hover { box-shadow: 0 8px 32px rgba(0,191,165,0.13); }
@@ -965,11 +969,12 @@
     </p>
     <div style="margin-bottom:2rem">
       <div class="member-card-wide" style="max-width:480px">
-        <div class="m-avatar">SV</div>
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana.jpg" alt="Susana Velasco">
         <div class="member-card-wide-body">
           <div class="m-name">Dr. Susana Velasco Lozano</div>
           <div class="m-role"><span data-lang="en">Principal Investigator</span><span data-lang="es">Investigadora Principal</span></div>
           <div class="m-detail"><span data-lang="en">Científica Titular, CSIC · ISQCH, CSIC–Universidad de Zaragoza</span><span data-lang="es">Científica Titular, CSIC · ISQCH, CSIC–Universidad de Zaragoza</span></div>
+          <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_susana.jpg" alt="Susana in the lab">
         </div>
       </div>
     </div>
@@ -980,7 +985,7 @@
     </p>
     <div class="members-wide-grid" style="margin-bottom:2rem">
       <div class="member-card-wide">
-        <div class="m-avatar secondary" style="background:linear-gradient(135deg,rgba(0,191,165,0.25),rgba(21,101,192,0.2))">JA</div>
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_juan.jpg" alt="Juan Almada">
         <div class="member-card-wide-body">
           <div class="m-name">Dr. Juan C. Almada</div>
           <div class="m-role"><span data-lang="en">Postdoctoral Researcher · 2023–2027</span><span data-lang="es">Investigador Postdoctoral · 2023–2027</span></div>
@@ -988,10 +993,11 @@
             <span data-lang="en">Juan is an Argentinian biochemist working at the heart of the PIEZOZYMES project. His work combines protein engineering and electrochemistry — engineering oxidoreductase variants, developing strategies for their oriented immobilization on piezoelectric materials, and evaluating their electrochemical performance. He also leads the development of high-throughput analytical methods (HTS-spectrophotometric and HPLC) to accelerate biocatalyst screening.</span>
             <span data-lang="es">Juan es un bioquímico argentino que trabaja en el núcleo del proyecto PIEZOZYMES. Su trabajo combina ingeniería de proteínas y electroquímica — ingeniería de variantes de oxidorreductasas, desarrollo de estrategias para su inmovilización orientada sobre materiales piezoeléctricos y evaluación de su rendimiento electroquímico. También lidera el desarrollo de métodos analíticos de alto rendimiento (HTS-espectrofotométrico y HPLC) para acelerar el cribado de biocatalizadores.</span>
           </div>
+          <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_juan.jpg" alt="Juan in the lab">
         </div>
       </div>
       <div class="member-card-wide">
-        <div class="m-avatar secondary" style="background:linear-gradient(135deg,rgba(0,191,165,0.25),rgba(21,101,192,0.2))">YK</div>
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_yasmine.jpg" alt="Yasmine Kadri">
         <div class="member-card-wide-body">
           <div class="m-name">Dr. Yasmine Kadri</div>
           <div class="m-role"><span data-lang="en">Postdoctoral Researcher · 2023–2025</span><span data-lang="es">Investigadora Postdoctoral · 2023–2025</span></div>
@@ -999,10 +1005,11 @@
             <span data-lang="en">Yasmine holds a PhD in Chemistry. This Tunisian researcher brings deep expertise in materials science to the PIEZOZYMES project, designing and synthesizing metal-perovskite piezoelectric materials and characterizing them through physicochemical and electrochemical methods. Her work also encompasses enzyme evaluation and stabilization strategies on gold and glassy carbon electrodes.</span>
             <span data-lang="es">Yasmine es doctora en Química. Esta investigadora tunecina aporta una profunda experiencia en ciencia de materiales al proyecto PIEZOZYMES, diseñando y sintetizando materiales piezoeléctricos metal-perovskita y caracterizándolos mediante métodos fisicoquímicos y electroquímicos. Su trabajo también abarca la evaluación y estabilización de enzimas sobre electrodos de oro y carbono vítreo.</span>
           </div>
+          <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_yasmine.jpg" alt="Yasmine in the lab">
         </div>
       </div>
       <div class="member-card-wide">
-        <div class="m-avatar secondary" style="background:linear-gradient(135deg,rgba(0,191,165,0.25),rgba(21,101,192,0.2))">YC</div>
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_yahir.jpg" alt="Yahir Cruz">
         <div class="member-card-wide-body">
           <div class="m-name">Dr. Yahir A. Cruz Martínez</div>
           <div class="m-role"><span data-lang="en">Postdoctoral Researcher · 2026–2027</span><span data-lang="es">Investigador Postdoctoral · 2026–2027</span></div>
@@ -1010,6 +1017,7 @@
             <span data-lang="en">Yahir holds a PhD in Biotechnology. This Mexican researcher joined the group as a visiting PhD student in 2024 and is now a full postdoctoral member. His research focuses on piezoelectric-driven biocatalysis, building on his previous work on carrier-free immobilized lipases for solid/gas ester synthesis.</span>
             <span data-lang="es">Yahir es doctor en Biotecnología. Este investigador mexicano se incorporó al grupo como estudiante de doctorado visitante en 2024 y ahora es miembro postdoctoral de pleno derecho. Su investigación se centra en la biocatálisis impulsada por piezoelectricidad, basándose en su trabajo previo sobre lipasas inmovilizadas sin soporte para la síntesis de ésteres en fase sólido/gas.</span>
           </div>
+          <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_yahir.jpg" alt="Yahir in the lab">
         </div>
       </div>
     </div>
@@ -1020,7 +1028,7 @@
     </p>
     <div class="members-wide-grid">
       <div class="member-card-wide">
-        <div class="m-avatar secondary">MM</div>
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_miguel.jpg" alt="Miguel Marco-Martín">
         <div class="member-card-wide-body">
           <div class="m-name">MSc Miguel Marco-Martín</div>
           <div class="m-role"><span data-lang="en">PhD Student · 2024–2028</span><span data-lang="es">Doctorando · 2024–2028</span></div>
@@ -1028,10 +1036,11 @@
             <span data-lang="en">Miguel holds a Master's in Molecular Approaches in Health Sciences. He is currently developing his PhD thesis on the integration of piezoelectric functionalities into immobilized enzyme cascades for the biosynthesis of α-hydroxy acids. Expected defense: June 2028. <em>PIEZOZYMES project.</em></span>
             <span data-lang="es">Miguel es Máster en Aproximaciones Moleculares en Ciencias de la Salud. Actualmente desarrolla su tesis doctoral sobre la integración de funcionalidades piezoeléctricas en cascadas enzimáticas inmovilizadas para la biosíntesis de ácidos α-hidroxi. Defensa prevista: junio 2028. <em>Proyecto PIEZOZYMES.</em></span>
           </div>
+          <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_miguel.jpg" alt="Miguel in the lab">
         </div>
       </div>
       <div class="member-card-wide">
-        <div class="m-avatar secondary">UR</div>
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_uriel.jpg" alt="Uriel Ruiz-Castillo">
         <div class="member-card-wide-body">
           <div class="m-name">MSc Uriel Ruiz-Castillo</div>
           <div class="m-role"><span data-lang="en">PhD Student · 2025–2029</span><span data-lang="es">Doctorando · 2025–2029</span></div>
@@ -1039,10 +1048,11 @@
             <span data-lang="en">Uriel holds a Master's in Biotechnology. This Mexican PhD student is working on piezoelectric-driven cascade biotransformations applied to the synthesis of alkyl-δ-valerolactones — a challenging and exciting frontier in mechanochemical biocatalysis. Expected defense: December 2029. <em>PIEZOZYMES project.</em></span>
             <span data-lang="es">Uriel es Máster en Biotecnología. Este doctorando mexicano trabaja en biotransformaciones en cascada impulsadas por piezoelectricidad aplicadas a la síntesis de alquil-δ-valerolactonas — una frontera apasionante en biocatálisis mecanoquímica. Defensa prevista: diciembre 2029. <em>Proyecto PIEZOZYMES.</em></span>
           </div>
+          <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_uriel.jpg" alt="Uriel in the lab">
         </div>
       </div>
       <div class="member-card-wide">
-        <div class="m-avatar secondary">RL</div>
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_rosario.jpg" alt="Rosario López-Magaña">
         <div class="member-card-wide-body">
           <div class="m-name">MSc Rosario López-Magaña</div>
           <div class="m-role"><span data-lang="en">PhD Student · Starting February 2026</span><span data-lang="es">Doctoranda · Incorporación febrero 2026</span></div>
@@ -1050,6 +1060,7 @@
             <span data-lang="en">Rosario holds a Master's in Sciences and will be joining the group in February 2026. She will develop her PhD thesis under the SiBioCat project (PID2024-160687OA-I00), working on silk-based biomaterials as dynamic platforms for multi-enzyme systems.</span>
             <span data-lang="es">Rosario es Máster en Ciencias y se incorporará al grupo en febrero de 2026. Desarrollará su tesis doctoral en el marco del proyecto SiBioCat (PID2024-160687OA-I00), trabajando en biomateriales basados en seda como plataformas dinámicas para sistemas multienzimáticos.</span>
           </div>
+          <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_rosario.jpg" alt="Rosario in the lab">
         </div>
       </div>
     </div>
