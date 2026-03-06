@@ -31,15 +31,20 @@
   #page-wrapper {
     height: 100vh;
     overflow: hidden;
+    position: relative;
   }
-  #page-wrapper > section {
+  .section-container {
     display: none;
     height: calc(100vh - 32px);
     overflow-y: auto;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
-  #page-wrapper > section.active-section {
+  .section-container.active-section {
     display: block;
+  }
+  #page-wrapper > section {
+    overflow-x: hidden;
   }
 
   ::-webkit-scrollbar { width: 5px; }
@@ -57,7 +62,7 @@
     transition: box-shadow 0.3s;
   }
   nav.scrolled { box-shadow: 0 2px 24px rgba(0,137,123,0.1); }
-  .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; text-decoration: none; }
+  .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.03em; text-decoration: none; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .nav-logo .logo-accent { font-family: 'Plus Jakarta Sans', sans-serif; font-style: italic; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--grad-main); flex-shrink: 0; }
   .nav-links { display: flex; gap: 2.2rem; list-style: none; }
@@ -80,7 +85,7 @@
   .lang-toggle button:first-child { border-right: 1.5px solid var(--border); }
 
   /* HERO */
-  .hero { padding: 6rem 4rem 4rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: start; position: relative; overflow: hidden; }
+  .hero { padding: 6rem 4rem 4rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; align-content: start; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; top: -10%; right: -5%; width: 55%; height: 110%; background: linear-gradient(145deg, rgba(0,191,165,0.07) 0%, rgba(21,101,192,0.09) 50%, rgba(0,200,83,0.06) 100%); border-radius: 40% 60% 70% 30% / 40% 30% 70% 60%; animation: morphBlob 12s ease-in-out infinite; z-index: 0; }
   @keyframes morphBlob { 0%,100% { border-radius: 40% 60% 70% 30% / 40% 30% 70% 60%; } 33% { border-radius: 70% 30% 50% 50% / 30% 40% 60% 70%; } 66% { border-radius: 30% 70% 30% 70% / 60% 30% 70% 40%; } }
   .hero-left { position: relative; z-index: 1; }
@@ -97,7 +102,7 @@
   .btn-ghost { background: none; color: var(--ink); font-size: 0.875rem; font-weight: 600; text-decoration: none; padding: 0.85rem 1.5rem; border: 1.5px solid rgba(0,0,0,0.12); border-radius: 10px; transition: all 0.2s; }
   .btn-ghost:hover { border-color: var(--teal); color: var(--teal2); }
   .hero-right { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1.25rem; align-self: center; }
-  .stat-card { background: white; border: 1.5px solid var(--border); border-radius: 18px; padding: 1.25rem 1.5rem; box-shadow: 0 2px 20px rgba(0,137,123,0.07); display: flex; align-items: center; gap: 1.5rem; transition: all 0.25s; width: fit-content; min-width: 280px; }
+  .stat-card { background: white; border: 1.5px solid var(--border); border-radius: 18px; padding: 1.75rem 2rem; box-shadow: 0 2px 20px rgba(0,137,123,0.07); display: flex; align-items: center; gap: 1.5rem; transition: all 0.25s; }
   .stat-card:hover { box-shadow: 0 8px 32px rgba(0,191,165,0.14); transform: translateY(-2px); }
   .stat-icon { width: 3.2rem; height: 3.2rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
   .si-teal { background: linear-gradient(135deg, rgba(0,191,165,0.15), rgba(0,191,165,0.05)); }
@@ -107,7 +112,9 @@
   .stat-num { font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
   .stat-label { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: var(--mid); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 0.2rem; }
 
-  .grad-divider { height: 3px; background: var(--grad-main); opacity: 0.35; }
+  .section-footer-mobile { display: none; }
+  #back-to-top { display: none; position: fixed; bottom: 4rem; right: 1.2rem; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--grad-main); color: white; border: none; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 16px rgba(0,191,165,0.4); z-index: 300; align-items: center; justify-content: center; transition: opacity 0.3s; }
+  #back-to-top.visible { display: flex; }
 
   /* SECTIONS */
   .section { padding: 6rem 4rem; }
@@ -118,7 +125,7 @@
   .section-sub { color: var(--mid); font-size: 0.95rem; line-height: 1.75; max-width: 55ch; margin-bottom: 3.5rem; }
 
   /* ABOUT */
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-grid { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 5rem; align-items: start; }
   .about-text p { color: var(--mid); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.25rem; }
   .about-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
   .chip { padding: 0.4rem 1rem; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
@@ -185,7 +192,7 @@
   .m-years { font-family: 'Inter', sans-serif; font-size: 0.62rem; color: var(--mid); margin-top: 0.4rem; }
 
   /* Member photos */
-  .m-avatar-img { width: 6rem; height: 6rem; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid rgba(0,191,165,0.3); box-shadow: 0 4px 16px rgba(0,191,165,0.2); }
+  .m-avatar-img { width: 8rem; height: 8rem; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid rgba(0,191,165,0.3); box-shadow: 0 4px 16px rgba(0,191,165,0.2); }
   .m-lab-photo { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; border: 1px solid var(--border); flex-shrink: 0; }
   /* Member detail card (expanded) */
   .member-card-wide { background: white; border-radius: 18px; border: 1.5px solid var(--border); padding: 2rem 2.5rem; transition: all 0.25s; box-shadow: 0 2px 12px rgba(0,0,0,0.04); display: flex; gap: 1.5rem; align-items: flex-start; }
@@ -378,14 +385,14 @@
     .nav-links { display: none; }
     .hamburger { display: flex; }
     .nav-inner { padding: 0 1rem; }
-    #global-footer { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--border); padding: 0.5rem 2rem; font-family: 'Inter', sans-serif; font-size: 0.62rem; color: var(--mid); text-align: center; z-index: 100; }
+    #global-footer { display: none; }
   #page-wrapper > section { height: calc(100vh - 32px); }
     .section, .section-alt { padding: 3rem 1.25rem; }
     .hero-title { font-size: 2.2rem; }
     .hero-badges { flex-wrap: wrap; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .about-profile { margin-top: 1rem; }
+    .about-profile { margin-top: 1rem; max-width: 320px; margin-left: auto; margin-right: auto; }
     .timeline { padding-left: 1.2rem; }
     .tl-item { padding-left: 1.5rem; word-break: break-word; }
     .tl-year { font-size: 0.7rem; }
@@ -406,7 +413,10 @@
     .research-grid { grid-template-columns: 1fr !important; }
     .collab-grid { grid-template-columns: 1fr !important; }
   }
-</style>
+  @media (max-width: 640px) {
+    .section-footer-mobile { display: block; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.62rem; color: var(--mid); padding: 1rem 2rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+  }
+  </style>
 </head>
 <body>
 <div id="page-wrapper">
@@ -415,7 +425,7 @@
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
     <div class="nav-dot"></div>
-    <span class="logo-accent">Piezo</span>BioCat
+    <span class="logo-accent">PiezoBioCat</span>
   </a>
   <ul class="nav-links">
     <li><a href="#about"><span data-lang="en">About</span><span data-lang="es">Sobre mí</span></a></li>
@@ -451,7 +461,7 @@
 </div>
 
 <!-- HERO -->
-<section class="hero" id="hero">
+<div class="section-container" id="hero"><section class="hero" id="hero">
   <div class="hero-left">
     <div class="hero-badge">
       <div class="badge-dot"></div>
@@ -489,11 +499,13 @@
     </div>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
+</div><!-- end section-container -->
 
 <div class="grad-divider"></div>
 
 <!-- ABOUT -->
-<section class="section" id="about">
+<div class="section-container" id="about"><section class="section" id="about">
   <div class="section-eyebrow"><span data-lang="en">About</span><span data-lang="es">Sobre mí</span></div>
   <div class="about-grid">
     <div class="about-text">
@@ -584,7 +596,7 @@
     </div>
     <div class="about-profile">
       <div class="profile-header">
-        <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana.PNG" alt="Susana Velasco Lozano" style="width:100%;height:580px;object-fit:cover;object-position:center top;display:block;border-radius:16px 16px 0 0;">
+        <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana.PNG" alt="Susana Velasco Lozano" style="width:100%;height:auto;object-fit:cover;object-position:center top;display:block;border-radius:16px 16px 0 0;">
         <div class="profile-name">Susana Velasco Lozano</div>
         <div class="profile-title">Principal Investigator · PiezoBioCat Group</div>
       </div>
@@ -621,9 +633,11 @@
     </div>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
+</div><!-- end section-container -->
 
 <!-- RESEARCH -->
-<section class="section section-alt" id="research">
+<div class="section-container" id="research"><section class="section section-alt" id="research">
   <div class="section-eyebrow"><span data-lang="en">Research</span><span data-lang="es">Investigación</span></div>
   <h2 class="section-title"><span data-lang="en">Lines of <span class="serif-w">Investigation</span></span><span data-lang="es">Líneas de <span class="serif-w">Investigación</span></span></h2>
   <p class="section-sub">
@@ -712,10 +726,12 @@
 
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
+</div><!-- end section-container -->
 
 
 <!-- PROJECTS -->
-<section class="section section-alt" id="projects">
+<div class="section-container" id="projects"><section class="section section-alt" id="projects">
   <div class="section-eyebrow"><span data-lang="en">Funding</span><span data-lang="es">Financiación</span></div>
   <h2 class="section-title"><span data-lang="en">Research <span class="serif-w">Projects</span></span><span data-lang="es"><span class="serif-w">Proyectos</span> de Investigación</span></h2>
   <p class="section-sub">
@@ -804,9 +820,11 @@
     </div>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
+</div><!-- end section-container -->
 
 <!-- PUBLICATIONS -->
-<section class="section" id="publications">
+<div class="section-container" id="publications"><section class="section" id="publications">
   <div class="section-eyebrow"><span data-lang="en">Publications</span><span data-lang="es">Publicaciones</span></div>
   <h2 class="section-title"><span data-lang="en">Selected <span class="serif-w">Publications</span></span><span data-lang="es"><span class="serif-w">Publicaciones</span> Destacadas</span></h2>
   <p class="section-sub">
@@ -1113,10 +1131,12 @@
 
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
+</div><!-- end section-container -->
 
 
 <!-- TEAM -->
-<section class="section section-alt" id="team">
+<div class="section-container" id="team"><section class="section section-alt" id="team">
   <div class="section-eyebrow"><span data-lang="en">People</span><span data-lang="es">Personas</span></div>
   <h2 class="section-title"><span data-lang="en">The <span class="serif-w">Group</span></span><span data-lang="es">El <span class="serif-w">Grupo</span></span></h2>
   <p class="section-sub">
@@ -1138,7 +1158,7 @@
     </p>
     <div style="margin-bottom:2rem">
       <div class="member-card-wide" style="max-width:600px">
-        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana.PNG" alt="Susana Velasco" style="object-fit:cover;object-position:center 10%;">
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana3.png" alt="Susana Velasco" style="object-fit:cover;object-position:center 10%;">
         <div class="member-card-wide-body">
           <div class="m-name">Dr. Susana Velasco Lozano</div>
           <div class="m-role"><span data-lang="en">Principal Investigator</span><span data-lang="es">Investigadora Principal</span></div>
@@ -1243,7 +1263,7 @@
     </p>
 
     <!-- Spain -->
-    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">🇪🇸 Spain</p>
+    <p style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:700;color:var(--teal2);letter-spacing:0.08em;margin-bottom:1rem"><img src="https://flagcdn.com/24x18/es.png" style="vertical-align:middle;margin-right:0.5rem;border-radius:2px">SPAIN</p>
     <div class="collab-grid" style="margin-bottom:2rem">
       <div class="collab-card">
         <div class="collab-name">Prof. Fernando López-Gallego</div>
@@ -1278,7 +1298,7 @@
     </div>
 
     <!-- Mexico -->
-    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">🇲🇽 Mexico</p>
+    <p style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:700;color:var(--teal2);letter-spacing:0.08em;margin-bottom:1rem"><img src="https://flagcdn.com/24x18/mx.png" style="vertical-align:middle;margin-right:0.5rem;border-radius:2px">MEXICO</p>
     <div class="collab-grid" style="margin-bottom:2rem">
       <div class="collab-card">
         <div class="collab-name">Prof. Sergio Huerta</div>
@@ -1293,7 +1313,7 @@
     </div>
 
     <!-- Switzerland -->
-    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">🇨🇭 Switzerland</p>
+    <p style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:700;color:var(--teal2);letter-spacing:0.08em;margin-bottom:1rem"><img src="https://flagcdn.com/24x18/ch.png" style="vertical-align:middle;margin-right:0.5rem;border-radius:2px">SWITZERLAND</p>
     <div class="collab-grid" style="margin-bottom:2rem">
       <div class="collab-card">
         <div class="collab-name">Prof. Francesca Paradisi</div>
@@ -1307,19 +1327,9 @@
       </div>
     </div>
 
-    <!-- Uruguay -->
-    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">🇺🇾 Uruguay</p>
-    <div class="collab-grid" style="margin-bottom:2rem">
-      <div class="collab-card">
-        <div class="collab-name">Prof. Lorena Betancor</div>
-        <div class="collab-role">Universidad ORT · Montevideo</div>
-        <div class="collab-desc"><span data-lang="en">Expert in enzyme immobilization and biocatalyst stabilization for industrial and environmental applications.</span><span data-lang="es">Experta en inmovilización enzimática y estabilización de biocatalizadores para aplicaciones industriales y ambientales.</span></div>
-      </div>
-    </div>
-
     <!-- Germany -->
-    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--teal2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">🇩🇪 Germany</p>
-    <div class="collab-grid">
+    <p style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:700;color:var(--teal2);letter-spacing:0.08em;margin-bottom:1rem"><img src="https://flagcdn.com/24x18/de.png" style="vertical-align:middle;margin-right:0.5rem;border-radius:2px">GERMANY</p>
+    <div class="collab-grid" style="margin-bottom:2rem">
       <div class="collab-card">
         <div class="collab-name">Dr. Ana Isabel Benítez</div>
         <div class="collab-role">Technical University of Munich</div>
@@ -1327,11 +1337,23 @@
       </div>
     </div>
 
+    <!-- Uruguay -->
+    <p style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:700;color:var(--teal2);letter-spacing:0.08em;margin-bottom:1rem"><img src="https://flagcdn.com/24x18/uy.png" style="vertical-align:middle;margin-right:0.5rem;border-radius:2px">URUGUAY</p>
+    <div class="collab-grid">
+      <div class="collab-card">
+        <div class="collab-name">Prof. Lorena Betancor</div>
+        <div class="collab-role">Universidad ORT · Montevideo</div>
+        <div class="collab-desc"><span data-lang="en">Expert in enzyme immobilization and biocatalyst stabilization for industrial and environmental applications.</span><span data-lang="es">Experta en inmovilización enzimática y estabilización de biocatalizadores para aplicaciones industriales y ambientales.</span></div>
+      </div>
+    </div>
+
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
+</div><!-- end section-container -->
 
 <!-- NEWS -->
-<section class="section" id="news">
+<div class="section-container" id="news"><section class="section" id="news">
   <div class="section-eyebrow"><span data-lang="en">News</span><span data-lang="es">Noticias</span></div>
   <h2 class="section-title"><span data-lang="en">Latest <span class="serif-w">Updates</span></span><span data-lang="es">Últimas <span class="serif-w">Novedades</span></span></h2>
   <p class="section-sub">
@@ -1469,9 +1491,11 @@
   </div>
 
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
+</div><!-- end section-container -->
 
 <!-- OPEN POSITIONS -->
-<section class="section" id="open-positions">
+<div class="section-container" id="open-positions"><section class="section" id="open-positions">
   <div class="section-eyebrow"><span data-lang="en">Opportunities</span><span data-lang="es">Oportunidades</span></div>
   <h2 class="section-title"><span data-lang="en">Open <span class="serif-w">Positions</span></span><span data-lang="es"><span class="serif-w">Posiciones</span> Abiertas</span></h2>
   <div style="max-width:700px;margin:0 auto;text-align:center;padding:3rem 2rem;background:var(--light);border-radius:24px;border:1.5px solid var(--border)">
@@ -1490,9 +1514,11 @@
     </a>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
+</div><!-- end section-container -->
 
 <!-- ALUMNI -->
-<section class="section section-alt" id="ex-members">
+<div class="section-container" id="ex-members"><section class="section section-alt" id="ex-members">
   <div class="section-eyebrow"><span data-lang="en">Alumni</span><span data-lang="es">Exmiembros</span></div>
   <h2 class="section-title"><span data-lang="en">Former <span class="serif-w">Members</span></span><span data-lang="es"><span class="serif-w">Exmiembros</span> del Grupo</span></h2>
   <p class="section-sub">
@@ -1569,9 +1595,11 @@
     </div>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
+</div><!-- end section-container -->
 
 <!-- CONTACT -->
-<section class="section" id="contact">
+<div class="section-container" id="contact"><section class="section" id="contact">
   <div class="contact-wrap">
     <div class="section-eyebrow" style="color:rgba(255,255,255,0.65)"><span data-lang="en">Contact</span><span data-lang="es">Contacto</span></div>
     <h2 class="section-title" style="color:white; margin-bottom:0.5rem">
@@ -1627,6 +1655,8 @@
     </div>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
+</div><!-- end section-container -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
@@ -1733,19 +1763,27 @@ async function drawWorldMap() {
   }
 
   function showSection(id) {
-    document.querySelectorAll('#page-wrapper > section').forEach(s => {
+    document.querySelectorAll('.section-container').forEach(s => {
       s.classList.remove('active-section');
       s.scrollTop = 0;
     });
     const target = document.getElementById(id);
     if (target) {
-      target.classList.add('active-section');
+      const container = target.classList.contains('section-container') ? target : target.closest('.section-container') || target;
+      container.classList.add('active-section');
       document.getElementById('navbar').classList.remove('scrolled');
-      target.addEventListener('scroll', () => {
-        document.getElementById('navbar').classList.toggle('scrolled', target.scrollTop > 20);
+      document.getElementById('back-to-top').classList.remove('visible');
+      container.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', container.scrollTop > 20);
+        document.getElementById('back-to-top').classList.toggle('visible', container.scrollTop > 200);
       }, { passive: true });
       if (id === 'contact') setTimeout(drawWorldMap, 50);
     }
+  }
+
+  function scrollToTop() {
+    const active = document.querySelector('.section-container.active-section');
+    if (active) active.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // Nav links → show section
@@ -1753,7 +1791,7 @@ async function drawWorldMap() {
     link.addEventListener('click', (e) => {
       const id = link.getAttribute('href').replace('#', '');
       const target = document.getElementById(id);
-      if (target && target.tagName === 'SECTION') {
+      if (target && (target.tagName === 'SECTION' || target.classList.contains('section-container'))) {
         e.preventDefault();
         showSection(id);
         closeMenu();
@@ -1769,5 +1807,7 @@ async function drawWorldMap() {
 <div id="global-footer">
   © 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza
 </div>
+
+<button id="back-to-top" onclick="scrollToTop()" aria-label="Volver arriba">↑</button>
 </body>
 </html>
