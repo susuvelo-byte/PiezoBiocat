@@ -111,7 +111,7 @@
   .stat-num { font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
   .stat-label { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: var(--mid); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 0.2rem; }
 
-  .grad-divider { height: 3px; background: var(--grad-main); opacity: 0.35; }
+  .section-footer-mobile { display: none; }
 
   /* SECTIONS */
   .section { padding: 6rem 4rem; }
@@ -382,7 +382,7 @@
     .nav-links { display: none; }
     .hamburger { display: flex; }
     .nav-inner { padding: 0 1rem; }
-    #global-footer { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--border); padding: 0.5rem 2rem; font-family: 'Inter', sans-serif; font-size: 0.62rem; color: var(--mid); text-align: center; z-index: 100; }
+    #global-footer { display: none; }
   #page-wrapper > section { height: calc(100vh - 32px); }
     .section, .section-alt { padding: 3rem 1.25rem; }
     .hero-title { font-size: 2.2rem; }
@@ -410,7 +410,10 @@
     .research-grid { grid-template-columns: 1fr !important; }
     .collab-grid { grid-template-columns: 1fr !important; }
   }
-</style>
+  @media (max-width: 640px) {
+    .section-footer-mobile { display: block; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.62rem; color: var(--mid); padding: 1rem 2rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+  }
+  </style>
 </head>
 <body>
 <div id="page-wrapper">
@@ -493,6 +496,7 @@
     </div>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
 </div><!-- end section-container -->
 
 <div class="grad-divider"></div>
@@ -626,6 +630,7 @@
     </div>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
 </div><!-- end section-container -->
 
 <!-- RESEARCH -->
@@ -718,6 +723,7 @@
 
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
 </div><!-- end section-container -->
 
 
@@ -811,6 +817,7 @@
     </div>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
 </div><!-- end section-container -->
 
 <!-- PUBLICATIONS -->
@@ -1121,6 +1128,7 @@
 
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
 </div><!-- end section-container -->
 
 
@@ -1147,7 +1155,7 @@
     </p>
     <div style="margin-bottom:2rem">
       <div class="member-card-wide" style="max-width:600px">
-        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana2.png" alt="Susana Velasco" style="object-fit:cover;object-position:center 10%;">
+        <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana3.png" alt="Susana Velasco" style="object-fit:cover;object-position:center 10%;">
         <div class="member-card-wide-body">
           <div class="m-name">Dr. Susana Velasco Lozano</div>
           <div class="m-role"><span data-lang="en">Principal Investigator</span><span data-lang="es">Investigadora Principal</span></div>
@@ -1338,6 +1346,7 @@
 
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
 </div><!-- end section-container -->
 
 <!-- NEWS -->
@@ -1479,6 +1488,7 @@
   </div>
 
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
 </div><!-- end section-container -->
 
 <!-- OPEN POSITIONS -->
@@ -1501,6 +1511,7 @@
     </a>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
 </div><!-- end section-container -->
 
 <!-- ALUMNI -->
@@ -1581,6 +1592,7 @@
     </div>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
 </div><!-- end section-container -->
 
 <!-- CONTACT -->
@@ -1640,6 +1652,7 @@
     </div>
   </div>
 </section>
+  <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
 </div><!-- end section-container -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
@@ -1751,14 +1764,19 @@ async function drawWorldMap() {
       s.classList.remove('active-section');
       s.scrollTop = 0;
     });
+    document.getElementById('global-footer').classList.remove('visible');
     const target = document.getElementById(id);
     if (target) {
-      // If target is a section-container, show it directly; if it's a section inside, show its parent
       const container = target.classList.contains('section-container') ? target : target.closest('.section-container') || target;
       container.classList.add('active-section');
       document.getElementById('navbar').classList.remove('scrolled');
       container.addEventListener('scroll', () => {
         document.getElementById('navbar').classList.toggle('scrolled', container.scrollTop > 20);
+        // Show footer on mobile when near bottom
+        if (window.innerWidth <= 640) {
+          const atBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 40;
+          document.getElementById('global-footer').classList.toggle('visible', atBottom);
+        }
       }, { passive: true });
       if (id === 'contact') setTimeout(drawWorldMap, 50);
     }
