@@ -31,15 +31,19 @@
   #page-wrapper {
     height: 100vh;
     overflow: hidden;
+    position: relative;
   }
-  #page-wrapper > section {
+  .section-container {
     display: none;
     height: calc(100vh - 32px);
     overflow-y: auto;
     overflow-x: hidden;
   }
-  #page-wrapper > section.active-section {
+  .section-container.active-section {
     display: block;
+  }
+  #page-wrapper > section {
+    overflow-x: hidden;
   }
 
   ::-webkit-scrollbar { width: 5px; }
@@ -57,7 +61,7 @@
     transition: box-shadow 0.3s;
   }
   nav.scrolled { box-shadow: 0 2px 24px rgba(0,137,123,0.1); }
-  .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; text-decoration: none; }
+  .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.03em; text-decoration: none; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .nav-logo .logo-accent { font-family: 'Plus Jakarta Sans', sans-serif; font-style: italic; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--grad-main); flex-shrink: 0; }
   .nav-links { display: flex; gap: 2.2rem; list-style: none; }
@@ -80,7 +84,7 @@
   .lang-toggle button:first-child { border-right: 1.5px solid var(--border); }
 
   /* HERO */
-  .hero { padding: 6rem 4rem 4rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; position: relative; overflow: hidden; }
+  .hero { padding: 6rem 4rem 4rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; align-content: start; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; top: -10%; right: -5%; width: 55%; height: 110%; background: linear-gradient(145deg, rgba(0,191,165,0.07) 0%, rgba(21,101,192,0.09) 50%, rgba(0,200,83,0.06) 100%); border-radius: 40% 60% 70% 30% / 40% 30% 70% 60%; animation: morphBlob 12s ease-in-out infinite; z-index: 0; }
   @keyframes morphBlob { 0%,100% { border-radius: 40% 60% 70% 30% / 40% 30% 70% 60%; } 33% { border-radius: 70% 30% 50% 50% / 30% 40% 60% 70%; } 66% { border-radius: 30% 70% 30% 70% / 60% 30% 70% 40%; } }
   .hero-left { position: relative; z-index: 1; }
@@ -96,7 +100,7 @@
   .btn-grad:hover { box-shadow: 0 6px 32px rgba(0,191,165,0.5); transform: translateY(-2px); }
   .btn-ghost { background: none; color: var(--ink); font-size: 0.875rem; font-weight: 600; text-decoration: none; padding: 0.85rem 1.5rem; border: 1.5px solid rgba(0,0,0,0.12); border-radius: 10px; transition: all 0.2s; }
   .btn-ghost:hover { border-color: var(--teal); color: var(--teal2); }
-  .hero-right { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1.25rem; }
+  .hero-right { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1.25rem; align-self: center; }
   .stat-card { background: white; border: 1.5px solid var(--border); border-radius: 18px; padding: 1.75rem 2rem; box-shadow: 0 2px 20px rgba(0,137,123,0.07); display: flex; align-items: center; gap: 1.5rem; transition: all 0.25s; }
   .stat-card:hover { box-shadow: 0 8px 32px rgba(0,191,165,0.14); transform: translateY(-2px); }
   .stat-icon { width: 3.2rem; height: 3.2rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
@@ -118,7 +122,7 @@
   .section-sub { color: var(--mid); font-size: 0.95rem; line-height: 1.75; max-width: 55ch; margin-bottom: 3.5rem; }
 
   /* ABOUT */
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-grid { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 5rem; align-items: start; }
   .about-text p { color: var(--mid); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.25rem; }
   .about-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
   .chip { padding: 0.4rem 1rem; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
@@ -415,7 +419,7 @@
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
     <div class="nav-dot"></div>
-    <span class="logo-accent">Piezo</span>BioCat
+    <span class="logo-accent">PiezoBioCat</span>
   </a>
   <ul class="nav-links">
     <li><a href="#about"><span data-lang="en">About</span><span data-lang="es">Sobre mí</span></a></li>
@@ -451,7 +455,7 @@
 </div>
 
 <!-- HERO -->
-<section class="hero" id="hero">
+<div class="section-container" id="hero"><section class="hero" id="hero">
   <div class="hero-left">
     <div class="hero-badge">
       <div class="badge-dot"></div>
@@ -489,11 +493,12 @@
     </div>
   </div>
 </section>
+</div><!-- end section-container -->
 
 <div class="grad-divider"></div>
 
 <!-- ABOUT -->
-<section class="section" id="about">
+<div class="section-container" id="about"><section class="section" id="about">
   <div class="section-eyebrow"><span data-lang="en">About</span><span data-lang="es">Sobre mí</span></div>
   <div class="about-grid">
     <div class="about-text">
@@ -584,7 +589,7 @@
     </div>
     <div class="about-profile">
       <div class="profile-header">
-        <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana.PNG" alt="Susana Velasco Lozano" style="width:100%;height:580px;object-fit:cover;object-position:center top;display:block;border-radius:16px 16px 0 0;">
+        <img src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_susana.PNG" alt="Susana Velasco Lozano" style="width:100%;height:auto;object-fit:cover;object-position:center top;display:block;border-radius:16px 16px 0 0;">
         <div class="profile-name">Susana Velasco Lozano</div>
         <div class="profile-title">Principal Investigator · PiezoBioCat Group</div>
       </div>
@@ -621,9 +626,10 @@
     </div>
   </div>
 </section>
+</div><!-- end section-container -->
 
 <!-- RESEARCH -->
-<section class="section section-alt" id="research">
+<div class="section-container" id="research"><section class="section section-alt" id="research">
   <div class="section-eyebrow"><span data-lang="en">Research</span><span data-lang="es">Investigación</span></div>
   <h2 class="section-title"><span data-lang="en">Lines of <span class="serif-w">Investigation</span></span><span data-lang="es">Líneas de <span class="serif-w">Investigación</span></span></h2>
   <p class="section-sub">
@@ -712,10 +718,11 @@
 
   </div>
 </section>
+</div><!-- end section-container -->
 
 
 <!-- PROJECTS -->
-<section class="section section-alt" id="projects">
+<div class="section-container" id="projects"><section class="section section-alt" id="projects">
   <div class="section-eyebrow"><span data-lang="en">Funding</span><span data-lang="es">Financiación</span></div>
   <h2 class="section-title"><span data-lang="en">Research <span class="serif-w">Projects</span></span><span data-lang="es"><span class="serif-w">Proyectos</span> de Investigación</span></h2>
   <p class="section-sub">
@@ -804,9 +811,10 @@
     </div>
   </div>
 </section>
+</div><!-- end section-container -->
 
 <!-- PUBLICATIONS -->
-<section class="section" id="publications">
+<div class="section-container" id="publications"><section class="section" id="publications">
   <div class="section-eyebrow"><span data-lang="en">Publications</span><span data-lang="es">Publicaciones</span></div>
   <h2 class="section-title"><span data-lang="en">Selected <span class="serif-w">Publications</span></span><span data-lang="es"><span class="serif-w">Publicaciones</span> Destacadas</span></h2>
   <p class="section-sub">
@@ -1113,10 +1121,11 @@
 
   </div>
 </section>
+</div><!-- end section-container -->
 
 
 <!-- TEAM -->
-<section class="section section-alt" id="team">
+<div class="section-container" id="team"><section class="section section-alt" id="team">
   <div class="section-eyebrow"><span data-lang="en">People</span><span data-lang="es">Personas</span></div>
   <h2 class="section-title"><span data-lang="en">The <span class="serif-w">Group</span></span><span data-lang="es">El <span class="serif-w">Grupo</span></span></h2>
   <p class="section-sub">
@@ -1329,9 +1338,10 @@
 
   </div>
 </section>
+</div><!-- end section-container -->
 
 <!-- NEWS -->
-<section class="section" id="news">
+<div class="section-container" id="news"><section class="section" id="news">
   <div class="section-eyebrow"><span data-lang="en">News</span><span data-lang="es">Noticias</span></div>
   <h2 class="section-title"><span data-lang="en">Latest <span class="serif-w">Updates</span></span><span data-lang="es">Últimas <span class="serif-w">Novedades</span></span></h2>
   <p class="section-sub">
@@ -1469,9 +1479,10 @@
   </div>
 
 </section>
+</div><!-- end section-container -->
 
 <!-- OPEN POSITIONS -->
-<section class="section" id="open-positions">
+<div class="section-container" id="open-positions"><section class="section" id="open-positions">
   <div class="section-eyebrow"><span data-lang="en">Opportunities</span><span data-lang="es">Oportunidades</span></div>
   <h2 class="section-title"><span data-lang="en">Open <span class="serif-w">Positions</span></span><span data-lang="es"><span class="serif-w">Posiciones</span> Abiertas</span></h2>
   <div style="max-width:700px;margin:0 auto;text-align:center;padding:3rem 2rem;background:var(--light);border-radius:24px;border:1.5px solid var(--border)">
@@ -1490,9 +1501,10 @@
     </a>
   </div>
 </section>
+</div><!-- end section-container -->
 
 <!-- ALUMNI -->
-<section class="section section-alt" id="ex-members">
+<div class="section-container" id="ex-members"><section class="section section-alt" id="ex-members">
   <div class="section-eyebrow"><span data-lang="en">Alumni</span><span data-lang="es">Exmiembros</span></div>
   <h2 class="section-title"><span data-lang="en">Former <span class="serif-w">Members</span></span><span data-lang="es"><span class="serif-w">Exmiembros</span> del Grupo</span></h2>
   <p class="section-sub">
@@ -1569,9 +1581,10 @@
     </div>
   </div>
 </section>
+</div><!-- end section-container -->
 
 <!-- CONTACT -->
-<section class="section" id="contact">
+<div class="section-container" id="contact"><section class="section" id="contact">
   <div class="contact-wrap">
     <div class="section-eyebrow" style="color:rgba(255,255,255,0.65)"><span data-lang="en">Contact</span><span data-lang="es">Contacto</span></div>
     <h2 class="section-title" style="color:white; margin-bottom:0.5rem">
@@ -1627,6 +1640,7 @@
     </div>
   </div>
 </section>
+</div><!-- end section-container -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
@@ -1733,16 +1747,18 @@ async function drawWorldMap() {
   }
 
   function showSection(id) {
-    document.querySelectorAll('#page-wrapper > section').forEach(s => {
+    document.querySelectorAll('.section-container').forEach(s => {
       s.classList.remove('active-section');
       s.scrollTop = 0;
     });
     const target = document.getElementById(id);
     if (target) {
-      target.classList.add('active-section');
+      // If target is a section-container, show it directly; if it's a section inside, show its parent
+      const container = target.classList.contains('section-container') ? target : target.closest('.section-container') || target;
+      container.classList.add('active-section');
       document.getElementById('navbar').classList.remove('scrolled');
-      target.addEventListener('scroll', () => {
-        document.getElementById('navbar').classList.toggle('scrolled', target.scrollTop > 20);
+      container.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', container.scrollTop > 20);
       }, { passive: true });
       if (id === 'contact') setTimeout(drawWorldMap, 50);
     }
@@ -1753,7 +1769,7 @@ async function drawWorldMap() {
     link.addEventListener('click', (e) => {
       const id = link.getAttribute('href').replace('#', '');
       const target = document.getElementById(id);
-      if (target && target.tagName === 'SECTION') {
+      if (target && (target.tagName === 'SECTION' || target.classList.contains('section-container'))) {
         e.preventDefault();
         showSection(id);
         closeMenu();
