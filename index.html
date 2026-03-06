@@ -1645,6 +1645,12 @@
   <div class="section-footer-mobile">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
 </div><!-- end section-container -->
 
+<!-- BACK TO TOP -->
+<button id="back-to-top" onclick="scrollToTop()" aria-label="Back to top">↑</button>
+
+<!-- GLOBAL FOOTER BAR -->
+<div id="global-footer">© 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza</div>
+
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script>
@@ -1654,6 +1660,7 @@ async function drawWorldMap() {
   if (mapRendered) return;
   mapRendered = true;
   const svgEl = document.getElementById('world-map');
+  if (!svgEl) return;
   const w = svgEl.parentElement.clientWidth - 16 || 400;
   const h = 200;
 
@@ -1666,7 +1673,18 @@ async function drawWorldMap() {
 
   const path = d3.geoPath().projection(projection);
 
-  const world = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+  let world;
+  try {
+    world = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+  } catch(e) {
+    mapRendered = false;
+    svgEl.innerHTML = '';
+    svg.append('text').attr('x', w/2).attr('y', h/2)
+      .attr('text-anchor','middle').attr('fill','rgba(255,255,255,0.4)')
+      .attr('font-size', 13).attr('font-family','Inter,sans-serif')
+      .text('Map unavailable — check connection');
+    return;
+  }
   const countries = topojson.feature(world, world.objects.countries);
 
   svg.selectAll('path')
