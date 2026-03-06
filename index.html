@@ -27,21 +27,19 @@
   html, body { height: 100%; overflow: hidden; max-width: 100vw; }
   body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); color: var(--ink); }
 
-  /* Full-page scroll container */
+  /* Section-based navigation */
   #page-wrapper {
     height: 100vh;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
   }
   #page-wrapper > section {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    height: 100vh;
-    min-height: 100vh;
+    display: none;
+    height: calc(100vh - 32px);
     overflow-y: auto;
     overflow-x: hidden;
+  }
+  #page-wrapper > section.active-section {
+    display: block;
   }
 
   ::-webkit-scrollbar { width: 5px; }
@@ -82,7 +80,7 @@
   .lang-toggle button:first-child { border-right: 1.5px solid var(--border); }
 
   /* HERO */
-  .hero { min-height: 100vh; padding: 6rem 4rem 4rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; position: relative; overflow: hidden; }
+  .hero { padding: 6rem 4rem 4rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; top: -10%; right: -5%; width: 55%; height: 110%; background: linear-gradient(145deg, rgba(0,191,165,0.07) 0%, rgba(21,101,192,0.09) 50%, rgba(0,200,83,0.06) 100%); border-radius: 40% 60% 70% 30% / 40% 30% 70% 60%; animation: morphBlob 12s ease-in-out infinite; z-index: 0; }
   @keyframes morphBlob { 0%,100% { border-radius: 40% 60% 70% 30% / 40% 30% 70% 60%; } 33% { border-radius: 70% 30% 50% 50% / 30% 40% 60% 70%; } 66% { border-radius: 30% 70% 30% 70% / 60% 30% 70% 40%; } }
   .hero-left { position: relative; z-index: 1; }
@@ -241,7 +239,8 @@
   .c-val { color: white; font-weight: 500; }
 
   /* FOOTER */
-  footer { padding: 2rem 4rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  #global-footer { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--border); padding: 0.5rem 2rem; font-family: 'Inter', sans-serif; font-size: 0.62rem; color: var(--mid); text-align: center; z-index: 100; }
+  footer { display: none; }
   .footer-logo { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.03em; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .footer-center { font-family: 'Inter', sans-serif; font-size: 0.65rem; color: var(--mid); text-align: center; line-height: 1.8; }
   .footer-right { font-family: 'Inter', sans-serif; font-size: 0.65rem; color: var(--mid); text-align: right; }
@@ -379,8 +378,8 @@
     .nav-links { display: none; }
     .hamburger { display: flex; }
     .nav-inner { padding: 0 1rem; }
-    #page-wrapper { scroll-snap-type: none; }
-    #page-wrapper > section { scroll-snap-align: none; scroll-snap-stop: unset; }
+    #global-footer { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--border); padding: 0.5rem 2rem; font-family: 'Inter', sans-serif; font-size: 0.62rem; color: var(--mid); text-align: center; z-index: 100; }
+  #page-wrapper > section { height: calc(100vh - 32px); }
     .section, .section-alt { padding: 3rem 1.25rem; }
     .hero-title { font-size: 2.2rem; }
     .hero-badges { flex-wrap: wrap; }
@@ -414,7 +413,7 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#" class="nav-logo">
+  <a href="#hero" class="nav-logo">
     <div class="nav-dot"></div>
     <span class="logo-accent">Piezo</span>BioCat
   </a>
@@ -452,7 +451,7 @@
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-left">
     <div class="hero-badge">
       <div class="badge-dot"></div>
@@ -1219,7 +1218,7 @@
             <span data-lang="es">Uriel es Máster en Biotecnología. Este doctorando mexicano trabaja en biotransformaciones en cascada impulsadas por piezoelectricidad aplicadas a la síntesis de alquil-δ-valerolactonas — una frontera apasionante en biocatálisis mecanoquímica. Defensa prevista: diciembre 2029. <em>Proyecto PIEZOZYMES.</em></span>
           </div>
         </div>
-        <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_uriel.jpeg" alt="Uriel in the lab">
+        <img class="m-lab-photo" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/lab_uriel.jpeg" alt="Uriel in the lab" style="object-position:center 10%;">
       </div>
       <div class="member-card-wide">
         <img class="m-avatar-img" src="https://raw.githubusercontent.com/susuvelo-byte/PiezoBiocat/main/images/photo_rosario.jpg" alt="Rosario López-Magaña">
@@ -1632,9 +1631,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script>
-(async function() {
+let mapRendered = false;
+
+async function drawWorldMap() {
+  if (mapRendered) return;
+  mapRendered = true;
   const svgEl = document.getElementById('world-map');
-  const w = svgEl.parentElement.clientWidth - 16;
+  const w = svgEl.parentElement.clientWidth - 16 || 400;
   const h = 200;
 
   const svg = d3.select('#world-map').attr('viewBox', `0 0 ${w} ${h}`);
@@ -1657,7 +1660,6 @@
     .attr('stroke', 'rgba(255,255,255,0.25)')
     .attr('stroke-width', 0.4);
 
-  // Zaragoza pin
   const [zx, zy] = projection([-0.877, 41.656]);
   svg.append('circle').attr('cx', zx).attr('cy', zy).attr('r', 8).attr('fill', 'rgba(0,191,165,0.3)');
   svg.append('circle').attr('cx', zx).attr('cy', zy).attr('r', 4).attr('fill', 'white');
@@ -1665,7 +1667,7 @@
     .attr('fill', 'white').attr('font-size', 10)
     .attr('font-family', 'Inter, sans-serif').attr('font-weight', '600')
     .text('Zaragoza');
-})();
+}
 </script>
 
 <!-- LIGHTBOX -->
@@ -1730,21 +1732,42 @@
     document.getElementById('hamburger').classList.remove('open');
   }
 
-  document.getElementById('page-wrapper').addEventListener('scroll', () => {
-    document.getElementById('navbar').classList.toggle('scrolled', document.getElementById('page-wrapper').scrollTop > 20);
-  });
+  function showSection(id) {
+    document.querySelectorAll('#page-wrapper > section').forEach(s => {
+      s.classList.remove('active-section');
+      s.scrollTop = 0;
+    });
+    const target = document.getElementById(id);
+    if (target) {
+      target.classList.add('active-section');
+      document.getElementById('navbar').classList.remove('scrolled');
+      target.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', target.scrollTop > 20);
+      }, { passive: true });
+      if (id === 'contact') setTimeout(drawWorldMap, 50);
+    }
+  }
 
-  // Fix nav links to scroll within #page-wrapper
+  // Nav links → show section
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
+      const id = link.getAttribute('href').replace('#', '');
+      const target = document.getElementById(id);
+      if (target && target.tagName === 'SECTION') {
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
+        showSection(id);
+        closeMenu();
       }
     });
   });
+
+  // Show hero section on load
+  showSection('hero');
 </script>
 </div><!-- end page-wrapper -->
+
+<div id="global-footer">
+  © 2026 Susana Velasco Lozano · ISQCH · CSIC · Universidad de Zaragoza
+</div>
 </body>
 </html>
