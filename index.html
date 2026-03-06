@@ -137,9 +137,11 @@
   .profile-avatar { width: 5rem; height: 5rem; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; color: white; border: 3px solid rgba(255,255,255,0.5); margin-bottom: 1rem; }
   .profile-name { font-size: 1.25rem; font-weight: 800; color: white; letter-spacing: -0.02em; margin-bottom: 0.3rem; }
   .profile-title { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: rgba(255,255,255,0.75); letter-spacing: 0.08em; text-transform: uppercase; }
-  .profile-body { padding: 2rem 2.5rem; }
-  .profile-row { display: flex; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+  .profile-body { padding: 1.5rem 1.75rem; }
+  .profile-row { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
   .profile-row:last-child { border-bottom: none; }
+  .pr-label { font-family: 'Inter', sans-serif; font-size: 0.62rem; color: var(--teal); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+  .pr-val { color: var(--mid); line-height: 1.5; }
   .pr-label { font-family: 'Inter', sans-serif; font-size: 0.68rem; color: var(--teal2); text-transform: uppercase; letter-spacing: 0.07em; min-width: 5.5rem; padding-top: 0.1rem; }
   .pr-val { color: var(--mid); line-height: 1.5; }
 
@@ -537,8 +539,8 @@
           <div class="tl-place"><span data-lang="en">Recognition & Leadership</span><span data-lang="es">Reconocimiento y Liderazgo</span></div>
           <span class="tl-badge"><span data-lang="en">Milestones</span><span data-lang="es">Hitos</span></span>
           <div class="tl-desc">
-            <span data-lang="en">Dec 2022 — Senior Researcher, ARAID · 2023 — R3 certification (scientific independence) · 2026 — Científica Titular, CSIC</span>
-            <span data-lang="es">Dic 2022 — Investigadora Senior, ARAID · 2023 — Certificación R3 (independencia científica) · 2026 — Científica Titular, CSIC</span>
+            <span data-lang="en">Dec 2022 — Senior Researcher, ARAID · 2023 — R3 certification (scientific independence) · 2026 — Científica Titular, CSIC · Since 2019 — SNI-1 distinction, Mexican National Research System · Since 2025 — Co-coordinator of the Biocatalysis Section of <a href="https://sebiot.org/sobre-sebiot/" target="_blank" style="color:var(--teal2);text-decoration:none;font-weight:500;">SEBiot</a>, together with Prof. Fernando López-Gallego</span>
+            <span data-lang="es">Dic 2022 — Investigadora Senior, ARAID · 2023 — Certificación R3 (independencia científica) · 2026 — Científica Titular, CSIC · Desde 2019 — Distinción SNI-1, Sistema Nacional de Investigadores (México) · Desde 2025 — Co-coordinadora de la Sección de Biocatálisis de la <a href="https://sebiot.org/sobre-sebiot/" target="_blank" style="color:var(--teal2);text-decoration:none;font-weight:500;">SEBiot</a>, junto con el Prof. Fernando López-Gallego</span>
           </div>
         </div>
 
@@ -620,31 +622,36 @@
       <div class="profile-body">
         <div class="profile-row">
           <span class="pr-label"><span data-lang="en">Position</span><span data-lang="es">Cargo</span></span>
-          <span class="pr-val"><span data-lang="en">Científica Titular, CSIC</span><span data-lang="es">Científica Titular, CSIC</span></span>
+          <span class="pr-val"><span data-lang="en">Científico Titular</span><span data-lang="es">Científico Titular</span></span>
         </div>
         <div class="profile-row">
           <span class="pr-label">Institute</span>
           <span class="pr-val">ISQCH · CSIC-Universidad de Zaragoza</span>
         </div>
-        <div class="profile-row">
-          <span class="pr-label">PhD</span>
-          <span class="pr-val"><span data-lang="en">Biotechnology, UAM México (2014) · Supervisor: Prof. Ernesto Favela</span><span data-lang="es">Biotecnología, UAM México (2014) · Dir.: Prof. Ernesto Favela</span></span>
-        </div>
-        <div class="profile-row">
-          <span class="pr-label">Postdoc</span>
-          <span class="pr-val">CIC biomaGUNE, MSCA Fellow (2015–2017) · Univ. Zaragoza, SECIHTI (2017–2019) · CIC biomaGUNE (2020–2022)</span>
-        </div>
+
         <div class="profile-row">
           <span class="pr-label">PI since</span>
-          <span class="pr-val"><span data-lang="en">June 2022 · Universidad de Zaragoza / ISQCH–CSIC</span><span data-lang="es">Junio 2022 · Universidad de Zaragoza / ISQCH–CSIC</span></span>
+          <span class="pr-val"><span data-lang="en">June 2022</span><span data-lang="es">Junio 2022</span></span>
         </div>
         <div class="profile-row">
           <span class="pr-label">ORCID</span>
-          <span class="pr-val">0000-0001-9478-6750</span>
+          <span class="pr-val"><a href="https://orcid.org/0000-0001-9478-6750" target="_blank" style="color:var(--blue);text-decoration:none;font-weight:500;">0000-0001-9478-6750</a></span>
         </div>
         <div class="profile-row">
-          <span class="pr-label">Grant</span>
-          <span class="pr-val">ERC Starting Grant · PIEZOZYMES · 2022–2027</span>
+          <span class="pr-label">WOS</span>
+          <span class="pr-val"><a href="https://www.webofscience.com/wos/author/record/AAA-4599-2021" target="_blank" style="color:var(--blue);text-decoration:none;font-weight:500;">AAA-4599-2021</a></span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">Scopus</span>
+          <span class="pr-val"><a href="https://www.scopus.com/authid/detail.uri?authorId=55193617800" target="_blank" style="color:var(--blue);text-decoration:none;font-weight:500;">55193617800</a></span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">Scholar</span>
+          <span class="pr-val"><a href="https://scholar.google.com/citations?user=qD15WAkAAAAJ" target="_blank" style="color:var(--blue);text-decoration:none;font-weight:500;">Google Scholar</a></span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">ResearchGate</span>
+          <span class="pr-val"><a href="https://www.researchgate.net/profile/Susana-Velasco-Lozano" target="_blank" style="color:var(--blue);text-decoration:none;font-weight:500;">ResearchGate</a></span>
         </div>
         <div class="profile-row">
           <span class="pr-label">Social</span>
